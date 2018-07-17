@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, ScrollView, WebView } from 'react-native';
-import { Container, Header, Content, Button, Text, Input } from 'native-base';
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import { ActivityIndicator} from 'react-native';
+import { Container, Content, Button, Text, Label, Form, Item, Input, Grid, Col } from 'native-base';
+import EncabezadoLogin from '../utils/EncabezadoLogin';
+
 
 export default class LoginPage extends Component {
 
@@ -47,72 +48,71 @@ export default class LoginPage extends Component {
     }
 
     limpiarUsuario = () =>{
-        this._usuario.setNativeProps({text:''});
+       // this._usuario.setNativeProps({text:''});
         this.setState({mensaje:''});
     }
 
     limpiarPassword = () =>{
-        this._password.setNativeProps({text:''});
+       // this._password.setNativeProps({text:''});
         this.setState({mensaje: ''});
     }
 
     render(){
+
         return (
-        <Container style={{padding: 30}}>
-            <Row>
-                <Header />
-                <Content>
-                    <Text 
-                        style={{fontSize: 27}}>
-                        Login
-                    </Text>
-                    <Input 
-                        ref={component => this._usuario = component}
-                        placeholder='Usuario' 
-                        onChangeText={(usuario) => this.setState({usuario})} 
-                        onFocus={this.limpiarUsuario}
-                        autoFocus= {true}
-                        style={styles.inputLetra}
-                    />
-                    <Input 
-                        ref={component => this._password = component}
-                        placeholder='Contraseña' 
-                        onChangeText={(password) => this.setState({password})} 
-                        onFocus={this.limpiarPassword}
-                        secureTextEntry={true}
-                        onSubmitEditing={this._userLogin}
-                        style={styles.inputLetra}
-                    />
-                    <Button 
-                            variant="contained"
-                            color="primary"
-                            onPress={this._userLogin}
-                            title="Entrar"
-                            disabled = {this.state.consultando || !this.state.usuario || !this.state.password}
-                        >
-                        <Text> Entrar </Text>
-                    </Button>
-                    {this.state.consultando && <ActivityIndicator/>}
-                    {!!this.state.mensaje && (
-                        <Text
-                            style={styles.mensajeAlerta}>
-                            {this.state.mensaje}
-                        </Text>
-                    )}
-                </Content>
-            </Row>
+        <Container >
+            <Content>
+                    <EncabezadoLogin titulo = "Login" />
+                            <Form>
+                                <Item floatingLabel>
+                                    <Label>Usuario</Label>
+                                    <Input 
+                                        ref={component => this._usuario = component}
+                                        onChangeText={(usuario) => this.setState({usuario})} 
+                                        onFocus={this.limpiarUsuario}
+                                        autoFocus= {true}
+                                        
+                                        
+                                    />
+                                </Item>
+                                <Item  floatingLabel last>
+                                    <Label>Contraseña</Label>
+                                    <Input 
+                                        ref={component => this._password = component}
+                                        onChangeText={(password) => this.setState({password})} 
+                                        onFocus={this.limpiarPassword}
+                                        secureTextEntry={true}
+                                        onSubmitEditing={this._userLogin}                                        
+                                        
+                                        
+                                    />
+                                </Item>
+                                <Grid>
+                                    <Col></Col>
+                                    <Col style={{paddingTop: 5}}>
+                                        <Button 
+                                            variant="contained"
+                                            color="primary"
+                                            onPress={this._userLogin}
+                                            title="Entrar"
+                                            disabled = {this.state.consultando || !this.state.usuario || !this.state.password}
+                                        >
+                                        <Text> Entrar </Text>
+                                        </Button>
+                                    </Col>
+                                    <Col></Col>
+                                    
+                                </Grid>
+                            </Form>
+                        {this.state.consultando && <ActivityIndicator/>}
+                        {!!this.state.mensaje && (
+                            <Text>
+                                {this.state.mensaje}
+                            </Text>
+                        )}
+                        
+            </Content>
         </Container>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    inputLetra: {
-        fontSize: 20
-    },
-    mensajeAlerta:{
-        fontSize: 14,
-        color: 'red',
-        padding: 5
-    }
-})

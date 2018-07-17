@@ -1,33 +1,46 @@
 import React from 'react';
-import {
-    ScrollView,
-    Text,
-    TextInput,
-    View, 
-    Button,
-    Image
-} from 'react-native';
-import Imagenes from '../utils/Images';
+import { Container, Content, Button, Text, Label, Form, Item, Input, Grid, Col, Row } from 'native-base';
 
 export default class Home extends React.Component {
 
     render(){
         return (
 
-            <ScrollView style={{padding: 20}}>
-            <Image 
-                source={Imagenes.logoLogin}
-            />
-            <Text 
-                style={{fontSize: 27}}>
-                Bienvenido
-            </Text>
-            <View style={{margin:20}} />
-            <Button
-                        onPress={this.props.onLogoutPress}
-                        title="Salir"
-                    />
-            </ScrollView>
+            <Grid>
+                <Row>
+                    <Col></Col>
+                    <Col><Text>Bienvenido</Text></Col>
+                    <Col></Col>
+                </Row>
+                <Row>
+                    <Col></Col>
+                    <Col><Text>Bienvenido</Text></Col>
+                    <Col></Col>
+                </Row>
+                <Row>
+                    <Col></Col>
+                    <Col><Text>Bienvenido</Text></Col>
+                    <Col></Col>
+                </Row>
+                <Row>
+                    <Col></Col>
+                    <Col><Text>Bienvenido</Text></Col>
+                    <Col></Col>
+                </Row>
+                <Row>
+                    <Col></Col>
+                    <Col>
+                        <Button
+                            onPress={this.props.onLogoutPress}
+                            title="Salir"
+                        >
+                            <Text> Salir </Text>
+                        </Button>
+                    </Col>
+                    <Col></Col>
+                    
+                </Row>
+            </Grid>
         )
     }
 }
