@@ -1,13 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, WebView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import HTML from 'react-native-render-html';
 
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 
 export default class RenderHTML extends React.Component {
+
+    state = {}  
+    
 
     constructor(props){
       super(props);
       this.state = {
-        cargando: true
+        cargando: true,
+        libro: props.Libro,
+        nivel: props.Nivel,
+        unidad: props.Unidad,
+        pagina: props.Pagina
+
       }
     }
   
@@ -41,7 +52,12 @@ export default class RenderHTML extends React.Component {
   
   
       return (
-        <WebView source={{html: this.state.html}} />
+        <ScrollView>
+          <HTML 
+            html={this.state.html}
+            /> 
+        </ScrollView>
+         
       );
     }
   }
@@ -49,8 +65,9 @@ export default class RenderHTML extends React.Component {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
+      width: deviceWidth,
+      height: deviceHeight
     },
   });

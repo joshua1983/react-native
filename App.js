@@ -1,62 +1,37 @@
 import React from 'react';
+import { AppRegistry } from 'react-native';
 import LoginPage from './modulos/auth/LoginPage';
-import Home from './modulos/home/Home';
-import { AppLoading, Font } from 'expo';
-import FontAwesome  
-  from './node_modules/@expo/vector-icons/fonts/FontAwesome.ttf';
-import MaterialIcons  
-  from './node_modules/@expo/vector-icons/fonts/MaterialIcons.ttf';
-import Roboto from 'native-base/Fonts/Roboto.ttf';
-import Roboto_medium from 'native-base/Fonts/Roboto_medium.ttf';
+import HomeUser from './modulos/home/HomeUser';
+import NivelUser from './modulos/home/NivelUser';
+import UnidadUser from './modulos/home/UnidadUser';
+import PaginaUser from './modulos/home/PaginaUser';
+import AuthLoadingScreen from './modulos/auth/AuthLoadingScreen';
 
 
-export default class App extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      autenticado: false,
-      fontLoaded:false
-    }
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+
+const AppStack = createStackNavigator({ 
+  Home: HomeUser, 
+  Nivel: NivelUser,
+  Unidad: UnidadUser,
+  Pagina: PaginaUser
+});
+
+const AuthStack = createStackNavigator({ 
+  Login: LoginPage 
+});
+
+AppRegistry.registerComponent('AppStack', () => AppStack);
+AppRegistry.registerComponent('AuthStack', () => AuthStack);
+
+export default createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
   }
-
-  async componentWillMount() {
-    try {
-      await Font.loadAsync({
-        Roboto,
-        Roboto_medium,
-        FontAwesome,
-        MaterialIcons        
-      });
-      this.setState({ fontLoaded: true });
-    } catch (error) {
-      console.log('error loading icon fonts', error);
-    }
-  }
-
-
-
-  render() {
-    if (!this.state.fontLoaded) {
-      return <AppLoading />;
-    }
-    
-    if (this.state.autenticado){
-      return (
-        <Home 
-          onLogoutPress={() => this.setState({autenticado: false})}
-        />
-      );
-    }else{
-      return (
-        <LoginPage 
-          onLoginPress={() => this.setState({autenticado: true})}
-        />
-      );
-    }
-
-    
-  }
-}
-
-
+);

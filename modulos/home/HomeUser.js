@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Container, Button, Text,  Grid, Col, Row } from 'native-base';
 import EncabezadoHome  from '../utils/EncabezadoHome';
 import Imagenes from '../utils/Images';
+ 
 
 const estilos = StyleSheet.create({
     imagen: {
@@ -11,7 +12,22 @@ const estilos = StyleSheet.create({
     }
 });
 
-export default class Home extends React.Component {
+export default class HomeUser extends React.Component {
+
+    static navigationOptions = {
+        title: 'Welcome to the Yesynergy!',
+    };
+
+    loadBook = () =>{
+        this.props.navigation.navigate('Nivel',{
+            Libro: 'Book'
+        });
+    }
+
+    _signOutAsync = async () => {
+        await AsyncStorage.clear();
+        this.props.navigation.navigate('Auth');
+    };
 
     render(){
         return (
@@ -21,10 +37,13 @@ export default class Home extends React.Component {
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Image
-                                style={estilos.imagen}
-                                source={Imagenes.bookImg}
-                            />
+                            <TouchableOpacity onPress = { this.loadBook }>
+                                <Image
+                                    style={estilos.imagen}
+                                    source={Imagenes.bookImg}
+                                    
+                                />
+                            </TouchableOpacity>
                         </Col>
                         <Col></Col>
                     </Row>
@@ -52,7 +71,7 @@ export default class Home extends React.Component {
                         <Col></Col>
                         <Col>
                             <Button
-                                onPress={this.props.onLogoutPress}
+                                onPress={this._signOutAsync}
                                 title="Salir"
                             >
                                 <Text> Salir </Text>
@@ -62,8 +81,10 @@ export default class Home extends React.Component {
                         
                     </Row>
                 </Grid>
+                
             </Container>
         )
+
     }
 }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ActivityIndicator} from 'react-native';
+import { ActivityIndicator, AsyncStorage} from 'react-native';
 import { Container, Content, Button, Text, Label, Form, Item, Input, Grid, Col } from 'native-base';
 import EncabezadoLogin from '../utils/EncabezadoLogin';
 
@@ -42,7 +42,10 @@ export default class LoginPage extends Component {
           })
           .then(() => {
             this.setState({consultando: false})
-            if (proceed) this.props.onLoginPress();
+            if (proceed) {
+                AsyncStorage.setItem('userToken', this.state.usuario);
+                this.props.navigation.navigate('App');
+            }
           })
           .done();
     }
@@ -62,55 +65,55 @@ export default class LoginPage extends Component {
         return (
         <Container >
             <Content>
-                    <EncabezadoLogin titulo = "Login" />
-                            <Form>
-                                <Item floatingLabel>
-                                    <Label>Usuario</Label>
-                                    <Input 
-                                        ref={component => this._usuario = component}
-                                        onChangeText={(usuario) => this.setState({usuario})} 
-                                        onFocus={this.limpiarUsuario}
-                                        autoFocus= {true}
-                                        
-                                        
-                                    />
-                                </Item>
-                                <Item  floatingLabel last>
-                                    <Label>Contraseña</Label>
-                                    <Input 
-                                        ref={component => this._password = component}
-                                        onChangeText={(password) => this.setState({password})} 
-                                        onFocus={this.limpiarPassword}
-                                        secureTextEntry={true}
-                                        onSubmitEditing={this._userLogin}                                        
-                                        
-                                        
-                                    />
-                                </Item>
-                                <Grid>
-                                    <Col></Col>
-                                    <Col style={{paddingTop: 5}}>
-                                        <Button 
-                                            variant="contained"
-                                            color="primary"
-                                            onPress={this._userLogin}
-                                            title="Entrar"
-                                            disabled = {this.state.consultando || !this.state.usuario || !this.state.password}
-                                        >
-                                        <Text> Entrar </Text>
-                                        </Button>
-                                    </Col>
-                                    <Col></Col>
-                                    
-                                </Grid>
-                            </Form>
-                        {this.state.consultando && <ActivityIndicator/>}
-                        {!!this.state.mensaje && (
-                            <Text>
-                                {this.state.mensaje}
-                            </Text>
-                        )}
-                        
+                <EncabezadoLogin titulo = "Login" />
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>Usuario</Label>
+                            <Input 
+                                ref={component => this._usuario = component}
+                                onChangeText={(usuario) => this.setState({usuario})} 
+                                onFocus={this.limpiarUsuario}
+                                autoFocus= {true}
+                                
+                                
+                            />
+                        </Item>
+                        <Item  floatingLabel last>
+                            <Label>Contraseña</Label>
+                            <Input 
+                                ref={component => this._password = component}
+                                onChangeText={(password) => this.setState({password})} 
+                                onFocus={this.limpiarPassword}
+                                secureTextEntry={true}
+                                onSubmitEditing={this._userLogin}                                        
+                                
+                                
+                            />
+                        </Item>
+                        <Grid>
+                            <Col></Col>
+                            <Col style={{paddingTop: 5}}>
+                                <Button 
+                                    variant="contained"
+                                    color="primary"
+                                    onPress={this._userLogin}
+                                    title="Entrar"
+                                    disabled = {this.state.consultando || !this.state.usuario || !this.state.password}
+                                >
+                                <Text> Entrar </Text>
+                                </Button>
+                            </Col>
+                            <Col></Col>
+                            
+                        </Grid>
+                    </Form>
+                {this.state.consultando && <ActivityIndicator/>}
+                {!!this.state.mensaje && (
+                    <Text>
+                        {this.state.mensaje}
+                    </Text>
+                )}
+                    
             </Content>
         </Container>
         )
