@@ -52,18 +52,20 @@ class DosBotones extends React.Component {
     render() {
       return (
 
-        <Grid>
-            <Col>
+            <View>
+                <Grid>
+                    <Col>
                 <Button info>
                     <Text style={esDosBotones.textButton}> {this.state.opcion1text}</Text>
                 </Button>
-            </Col>
-            <Col>
+                    </Col>
+                    <Col>
                 <Button warning>
                     <Text style={esDosBotones.textButton}> {this.state.opcion2text}</Text>
                 </Button>
-            </Col>
-        </Grid>
+                    </Col>
+                </Grid>
+           </View>
         
          
       );

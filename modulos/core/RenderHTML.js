@@ -9,107 +9,41 @@ import  DosBotones  from './templates/DosBotones';
 
 export default class RenderHTML extends React.Component {
 
-    state = {}  
-    paginas = [];
 
     constructor(props){
       super(props);
       this.state = {
-        cargando: true,
-        libro: props.Libro,
-        nivel: props.Nivel,
-        unidad: props.Unidad,
-        pagina: props.Pagina
-
+        html: this.props.html,
+        tipo: this.props.tipo
       }
       this.dosBotones = React.createRef();
     }
 
-    componentDidMount(){
-      return fetch('http://admin.yesynergy.com/index.php/mobile/getPaginasJSON/'+
-                   this.state.Nivel+'/'+this.state.unidad+'/'+this.state.libro)
-          .then((response) => response.json())
-          .then((responseJson) => {
-  
-              this.paginas = responseJson;
-  
-          })
-          .catch((error) =>{
-          console.error(error);
-      });
-  }
-  
-    cargarPagina(id){
-      return fetch('http://admin.yesynergy.com/index.php/mobile/getPagina/'+id)
-        .then((response) => response.json())
-        .then((responseJson) => {
-  
-          this.setState({
-            cargando: false,
-            html: responseJson[0].html,
-            tipo: responseJson[0].tipo
-          }, function(){
-  
-          });
-  
-        })
-        .catch((error) =>{
-          console.error(error);
-        });
-    }
 
     _siguiente = () => {
-      this.cargarPagina(this.state.)
+      
       this.dosBotones._guardar();
     }
   
   
     render() {
-      if (this.state.cargando == true){
-        return (
-          <View>
-            <Text>Cargando...</Text>
-          </View>
-        );
-      }
-  
+ 
   
       return (
         <ScrollView style={estilos.container}>
-          
+          <HTML 
+            html={this.state.html}
+          /> 
 
-          <Content>
-            <Card>
-              <CardItem>
-                <Body>
-                  <HTML 
-                    html={this.state.html}
-                  /> 
-                </Body>
-              </CardItem>
-            </Card>
-            <Card>
-              <CardItem>
-                <Body>
-                  { this.state.tipo == "1" && 
-                  <DosBotones 
-                    ref = { instancia => { this.dosBotones = instancia }}
-                  />
-                  }
-                </Body>
-                </CardItem>
-            </Card>
-            <Card>
-              <CardItem>
-                <Body>
-                  <Button iconRight rounded success onPress={this._siguiente} > 
-                    <Text style={estilos.textButton} >Siguiente </Text>
-                  </Button>
-                </Body>
-              </CardItem>
-            </Card>
-          </Content>
-
+            <Grid>
+              <Col>
+              { this.state.tipo == 1 && 
+              <DosBotones style={estilos.botones}
+                ref = { instancia => { this.dosBotones = instancia }}
+              />
+              }
+              </Col>
+            </Grid>
         </ScrollView>
          
       );
@@ -122,5 +56,8 @@ export default class RenderHTML extends React.Component {
     },
     textButton: {
       padding: 10
+    },
+    botones:{
+      flex: 1
     }
   });
