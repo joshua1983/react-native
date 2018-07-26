@@ -10,7 +10,7 @@ import  DosBotones  from './templates/DosBotones';
 export default class RenderHTML extends React.Component {
 
     state = {}  
-    
+    paginas = [];
 
     constructor(props){
       super(props);
@@ -24,9 +24,23 @@ export default class RenderHTML extends React.Component {
       }
       this.dosBotones = React.createRef();
     }
-  
+
     componentDidMount(){
-      return fetch('http://admin.yesynergy.com/index.php/mobile/getPagina/1/1')
+      return fetch('http://admin.yesynergy.com/index.php/mobile/getPaginasJSON/'+
+                   this.state.Nivel+'/'+this.state.unidad+'/'+this.state.libro)
+          .then((response) => response.json())
+          .then((responseJson) => {
+  
+              this.paginas = responseJson;
+  
+          })
+          .catch((error) =>{
+          console.error(error);
+      });
+  }
+  
+    cargarPagina(id){
+      return fetch('http://admin.yesynergy.com/index.php/mobile/getPagina/'+id)
         .then((response) => response.json())
         .then((responseJson) => {
   
@@ -45,6 +59,7 @@ export default class RenderHTML extends React.Component {
     }
 
     _siguiente = () => {
+      this.cargarPagina(this.state.)
       this.dosBotones._guardar();
     }
   
@@ -61,11 +76,18 @@ export default class RenderHTML extends React.Component {
   
       return (
         <ScrollView style={estilos.container}>
-          <HTML 
-            html={this.state.html}
-            /> 
+          
 
           <Content>
+            <Card>
+              <CardItem>
+                <Body>
+                  <HTML 
+                    html={this.state.html}
+                  /> 
+                </Body>
+              </CardItem>
+            </Card>
             <Card>
               <CardItem>
                 <Body>

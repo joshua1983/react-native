@@ -12,8 +12,11 @@ export default class PaginaUser extends React.Component {
         Libro: '',
         Nivel: '',
         Unidad: '',
-        Pagina: 1
+        Pagina: 1,
+        Pagina_actual: 1,
+        cargando: true
         }
+    paginas = [];
 
     constructor(){
         super();
@@ -31,10 +34,20 @@ export default class PaginaUser extends React.Component {
             Unidad: unidad,
             Pagina: 1
         });
+
+
     }
 
 
     render(){
+
+        if (this.state.cargando == true){
+            return (
+              <View>
+                <Text>Cargando...</Text>
+              </View>
+            );
+          }
 
         return (
             <Container>
