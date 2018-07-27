@@ -15,7 +15,7 @@ export default class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        fontLoaded:false
+        cargando: true
     }
     this._bootstrapAsync();
   }
@@ -30,6 +30,7 @@ export default class AuthLoadingScreen extends React.Component {
   };
 
   async componentWillMount() {
+    
     try {
       await Font.loadAsync({
         Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -41,11 +42,12 @@ export default class AuthLoadingScreen extends React.Component {
     } catch (error) {
       console.log('error loading icon fonts', error);
     }
+    
   }
 
   // Render any loading content that you like here
   render() {
-    if (!this.state.fontLoaded) {
+    if (this.state.cargando) {
         return <AppLoading />;
     }
     return (

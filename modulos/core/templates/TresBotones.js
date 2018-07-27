@@ -3,14 +3,17 @@ import { StyleSheet, Text, View, ScrollView, Dimensions, Platform, ToastAndroid 
 import { Grid, Col, Button, Toast } from 'native-base';
 
 
-class DosBotones extends React.Component {
+class TresBotones extends React.Component {
 
     state = {
         opcion1text: 'Opcion 1',
         opcion1valor: '0',
         opcion2text: 'Opcion 2',
         opcion2valor: '0',
-        opcionSeleccionada: '0'
+        opcionSeleccionada: '0',
+        opcion3valor: '0',
+        opcion3text: 'Opcion 2',
+        
     }
 
     constructor(props){
@@ -26,6 +29,11 @@ class DosBotones extends React.Component {
     _selOpcion2 =() =>{
         this.setState({
             opcionSeleccionada: this.state.opcion2valor
+        });
+    }
+    _selOpcion3 =() =>{
+        this.setState({
+            opcionSeleccionada: this.state.opcion3valor
         });
     }
 
@@ -52,12 +60,15 @@ class DosBotones extends React.Component {
     render() {
       return (
 
-            <View style={esDosBotones.container}>
+            <View style={esTresBotones.container}>
                 <Button onPress={this._selOpcion1} info>
-                    <Text style={esDosBotones.textButton}> {this.state.opcion1text}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.opcion1text}</Text>
                 </Button>
-                <Button warning>
-                    <Text onPress={this._selOpcion2} style={esDosBotones.textButton}> {this.state.opcion2text}</Text>
+                <Button onPress={this._selOpcion2} warning>
+                    <Text style={esTresBotones.textButton}> {this.state.opcion2text}</Text>
+                </Button>
+                <Button onPress={this._selOpcion3} success>
+                    <Text style={esTresBotones.textButton}> {this.state.opcion3text}</Text>
                 </Button>
            </View>
         
@@ -66,7 +77,7 @@ class DosBotones extends React.Component {
     }
   }
 
-  const esDosBotones = StyleSheet.create({
+  const esTresBotones = StyleSheet.create({
     container: {
       padding: 5,
       flex: 1,
@@ -79,4 +90,4 @@ class DosBotones extends React.Component {
   });
 
 
-  export default DosBotones;
+  export default TresBotones;

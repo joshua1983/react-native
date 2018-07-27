@@ -58,9 +58,21 @@ export default class PaginaUser extends React.Component {
 
     _siguiente = () =>{
         this.renderHTML._siguiente();
-        this.setState({
-            pagina: this.state.pagina + 1
-        })
+        if (this.state.pagina +1 != this.state.paginas.length){
+            this.setState({
+                pagina: this.state.pagina + 1
+            });
+        }
+    }
+
+    _anterior = () =>{       
+        this.renderHTML._anterior(); 
+        if (this.state.pagina -1 > -1){
+            this.setState({
+                pagina: this.state.pagina -1 
+            });
+        }
+        
     }
 
     render(){
@@ -86,6 +98,7 @@ export default class PaginaUser extends React.Component {
                     <Card>
                         <CardItem>
                             <Body>
+                                
                                 <RenderHTML
                                     html = {this.state.paginas[this.state.pagina].html}
                                     tipo = {this.state.paginas[this.state.pagina].tipo}
@@ -96,10 +109,22 @@ export default class PaginaUser extends React.Component {
                     </Card>
                     <Card>
                         <CardItem>
-                            <Body>
-                            <Button iconRight rounded success onPress={this._siguiente} > 
-                                <Text style={estilos.textButton} >Siguiente </Text>
-                            </Button>
+                            <Body style={estilos.botones}>
+                            {
+                                (this.state.pagina -1) > -1 &&
+                                
+                                <Button iconLeft rounded warning onPress={this._anterior} > 
+                                    <Text style={estilos.textButton} >Anterior </Text>
+                                </Button>
+                            }  
+                            {
+                                ( (this.state.pagina +1) != (this.state.paginas.length) || this.state.pagina == 0) &&
+                                <Button iconRight rounded success onPress={this._siguiente} > 
+                                    <Text style={estilos.textButton} >Siguiente </Text>
+                                </Button>
+
+                            }
+                              
                             </Body>
                         </CardItem>
                     </Card>
@@ -117,6 +142,11 @@ const estilos = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center'
+    },
+    botones: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     listaItems:{
         backgroundColor: "transparent"

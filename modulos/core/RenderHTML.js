@@ -2,7 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Button, Grid, Col, Row, Content, CardItem, Card, Body } from 'native-base';
-import  DosBotones  from './templates/DosBotones';
+import DosBotones  from './templates/DosBotones';
+import TresBotones from './templates/TresBotones';
+import CajaTexto from './templates/CajaTexto';
 
 //const deviceHeight = Dimensions.get('window').height;
 //const deviceWidth = Dimensions.get('window').width;
@@ -16,13 +18,35 @@ export default class RenderHTML extends React.Component {
         html: this.props.html,
         tipo: this.props.tipo
       }
-      this.dosBotones = React.createRef();
+      this.botones = React.createRef();
     }
 
 
     _siguiente = () => {
       
-      this.dosBotones._guardar();
+      this.botones._guardar();
+      this.setState({
+        html: '',
+        tipo: 0
+      });
+    }
+    _anterior = () => {
+      
+      this.botones._guardar();
+    }
+
+    componentDidUpdate(prevProps) {
+      if(this.props.html !== prevProps.html) {
+        this.updateHtml();
+      }
+    } 
+  
+    updateHtml(){
+      this.setState(this.state);
+    }
+
+    shouldComponentUpdate(nextProps){
+      return nextProps.html !== this.state.html;
     }
   
   
@@ -32,18 +56,24 @@ export default class RenderHTML extends React.Component {
       return (
         <ScrollView style={estilos.container}>
           <HTML 
-            html={this.state.html}
+            html={this.props.html}
           /> 
 
-            <Grid>
-              <Col>
-              { this.state.tipo == 1 && 
-              <DosBotones style={estilos.botones}
-                ref = { instancia => { this.dosBotones = instancia }}
+              { this.props.tipo == 1 && 
+              <DosBotones 
+                          ref = { instancia => { this.botones = instancia }}
               />
               }
-              </Col>
-            </Grid>
+              { this.props.tipo == 2 && 
+              <TresBotones 
+                          ref = { instancia => { this.botones = instancia }}
+              />
+              }
+              { this.props.tipo == 3 && 
+              <CajaTexto 
+                          ref = { instancia => { this.botones = instancia }}
+              />
+              }
         </ScrollView>
          
       );
@@ -58,6 +88,7 @@ export default class RenderHTML extends React.Component {
       padding: 10
     },
     botones:{
-      flex: 1
+      flex: 1,
+      backgroundColor: 'black'
     }
   });

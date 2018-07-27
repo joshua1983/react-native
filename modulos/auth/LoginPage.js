@@ -13,6 +13,10 @@ export default class LoginPage extends Component {
         mensaje: ''
     }
 
+    constructor(props){
+        super(props);
+    }
+
     _userLogin = () =>{
         this.setState({consultando: true, mensaje: ''});
         let parametros = {
@@ -49,6 +53,8 @@ export default class LoginPage extends Component {
           })
           .done();
     }
+
+   
 
     limpiarUsuario = () =>{
        // this._usuario.setNativeProps({text:''});
