@@ -20,22 +20,17 @@ export default class EncabezadoLogin extends Component {
 
     render(){
         return(
-            <Header>
-                
-                <Body style={styles.Body}>
-                    
+                 
                     <Image
                         source={Imagenes.logoLogin}
                     />
-                </Body>
                 
-            </Header>
         )
     }
 }
 const styles = StyleSheet.create({
     Body:{
-        paddingTop: 20,
+        paddingTop: 40,
         backgroundColor: 'white'
     }
 })

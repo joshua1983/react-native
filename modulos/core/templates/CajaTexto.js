@@ -26,11 +26,11 @@ class CajaTexto extends React.Component {
 
     _informar(){
         if (Platform.OS == 'android'){
-            ToastAndroid.show('Datos guardados!', ToastAndroid.SHORT);
+            ToastAndroid.show('Respuesta guardada!', ToastAndroid.SHORT);
         }else{
             Alert.alert(
                 'Plataforma',
-                'Datos guardados',
+                'Respuesta guardada',
                 [
                   {text: 'Ok'}
                 ],

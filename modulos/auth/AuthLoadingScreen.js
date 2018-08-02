@@ -52,7 +52,7 @@ export default class AuthLoadingScreen extends React.Component {
     }
     return (
     <Provider store={store}>
-        <View>
+        <View style={{ backgroundColor: '#ffffff' }}>
             <ActivityIndicator />
             <StatusBar barStyle="default" />
         </View>
