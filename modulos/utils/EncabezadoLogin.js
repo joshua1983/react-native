@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { Header, Body, Left, Right, Title, Grid, Col } from 'native-base';
-
+import Imagenes from '../utils/Images';
 
 
 
@@ -23,11 +23,10 @@ export default class EncabezadoLogin extends Component {
             <Header>
                 
                 <Body style={styles.Body}>
-                    <Grid>
-                        <Col></Col>
-                        <Col><Title> {this.state.titulo} </Title></Col>
-                        <Col></Col>
-                    </Grid>
+                    
+                    <Image
+                        source={Imagenes.logoLogin}
+                    />
                 </Body>
                 
             </Header>
@@ -36,6 +35,7 @@ export default class EncabezadoLogin extends Component {
 }
 const styles = StyleSheet.create({
     Body:{
-        paddingTop: 20
+        paddingTop: 20,
+        backgroundColor: 'white'
     }
 })
