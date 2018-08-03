@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions,  Platform, ToastAndroid } from 'react-native';
+import { StyleSheet, TextInput, View, ScrollView, Dimensions,  Platform, ToastAndroid } from 'react-native';
 import {Textarea, Content, Form} from 'native-base';
 
 
@@ -45,7 +45,13 @@ class CajaTexto extends React.Component {
 
             <Content padder>
                 <Form>
-                    <Textarea value={this.state.texto} onChange={this._actualizaTexto} rowSpan={5} bordered  />
+                    <View style={esTextarea.container} >
+                    <TextInput 
+                    
+                    value={this.state.texto} 
+                    onChange={this._actualizaTexto} 
+                    rowSpan={5} bordered  />
+                    </View>
                 </Form>
             </Content>
                 
@@ -59,7 +65,7 @@ class CajaTexto extends React.Component {
     container: {
       padding: 5,
       flex: 1,
-      flexDirection: 'row',
+      flexDirection: 'column',
       justifyContent: 'space-between'
     },
     textButton: {
