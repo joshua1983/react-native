@@ -5,27 +5,27 @@ import { Grid, Col, Button, Toast } from 'native-base';
 
 class DosBotones extends React.Component {
 
-    state = {
-        opcion1text: 'Opcion 1',
-        opcion1valor: '0',
-        opcion2text: 'Opcion 2',
-        opcion2valor: '0',
-        opcionSeleccionada: '0'
-    }
+    
 
     constructor(props){
-      super(props);    
-
+        super(props);    
+        this.state = {
+            id1: this.props.id1,
+            id2: this.props.id2,
+            val1: this.props.val1,
+            val2: this.props.val2,
+            opcionSeleccionada: '-'
+        }
     }
 
     _selOpcion1 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.opcion1valor
+            opcionSeleccionada: this.state.val1
         });
     }
     _selOpcion2 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.opcion2valor
+            opcionSeleccionada: this.state.val2
         });
     }
 
@@ -35,7 +35,7 @@ class DosBotones extends React.Component {
 
     _informar(){
         if (Platform.OS == 'android'){
-            ToastAndroid.show('Respuesta guardada!', ToastAndroid.SHORT);
+            ToastAndroid.show('Respuesta '+this.state.opcionSeleccionada+' guardada!', ToastAndroid.SHORT);
         }else{
             Alert.alert(
                 'Plataforma',
@@ -51,30 +51,44 @@ class DosBotones extends React.Component {
 
     render() {
       return (
-
-            <View style={esDosBotones.container}>
+        <View style={esDosBotones.container}>
+            <View style={esDosBotones.botones}>
                 <Button onPress={this._selOpcion1} info>
-                    <Text style={esDosBotones.textButton}> {this.state.opcion1text}</Text>
+                    <Text style={esDosBotones.textButton}> {this.state.val1}</Text>
                 </Button>
-                <Button warning>
-                    <Text onPress={this._selOpcion2} style={esDosBotones.textButton}> {this.state.opcion2text}</Text>
+                <Button onPress={this._selOpcion2} warning>
+                    <Text style={esDosBotones.textButton}> {this.state.val2}</Text>
                 </Button>
+                
            </View>
-        
+           <View style={esDosBotones.viewRespuesta}>
+                <Text style={{textAlign: 'center'}}>
+                    Seleccion: {"\n"} {this.state.opcionSeleccionada}
+                </Text>
+            </View>
+        </View>
          
       );
     }
   }
 
   const esDosBotones = StyleSheet.create({
-    container: {
+    container:{
+        flex: 1,
+        flexDirection: 'column'
+    },
+    botones: {
       padding: 5,
       flex: 1,
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
     textButton: {
       padding: 20
+    },
+    viewRespuesta: {
+        backgroundColor: "#c885ba",
+        borderRadius: 20
     }
   });
 

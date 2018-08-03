@@ -6,13 +6,13 @@ import { Grid, Col, Button, Toast } from 'native-base';
 class TresBotones extends React.Component {
 
     state = {
-        opcion1text: 'Opcion 1',
-        opcion1valor: '0',
-        opcion2text: 'Opcion 2',
-        opcion2valor: '0',
-        opcionSeleccionada: '0',
-        opcion3valor: '0',
-        opcion3text: 'Opcion 2',
+        id1: this.props.id1,
+        id2: this.props.id2,
+        id3: this.props.id3,
+        val1: this.props.val1,
+        val2: this.props.val2,
+        val3: this.props.val3,
+        opcionSeleccionada: '-'
         
     }
 
@@ -23,17 +23,17 @@ class TresBotones extends React.Component {
 
     _selOpcion1 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.opcion1valor
+            opcionSeleccionada: this.state.val1
         });
     }
     _selOpcion2 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.opcion2valor
+            opcionSeleccionada: this.state.val2
         });
     }
     _selOpcion3 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.opcion3valor
+            opcionSeleccionada: this.state.val3
         });
     }
 
@@ -60,17 +60,24 @@ class TresBotones extends React.Component {
     render() {
       return (
 
-            <View style={esTresBotones.container}>
+        <View style={esTresBotones.container}>
+            <View style={esTresBotones.botones}>
                 <Button onPress={this._selOpcion1} info>
-                    <Text style={esTresBotones.textButton}> {this.state.opcion1text}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.val1}</Text>
                 </Button>
                 <Button onPress={this._selOpcion2} warning>
-                    <Text style={esTresBotones.textButton}> {this.state.opcion2text}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.val2}</Text>
                 </Button>
                 <Button onPress={this._selOpcion3} success>
-                    <Text style={esTresBotones.textButton}> {this.state.opcion3text}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.val3}</Text>
                 </Button>
-           </View>
+            </View>
+            <View style={esTresBotones.viewRespuesta}>
+                <Text style={{textAlign: 'center'}}>
+                    Seleccion: {"\n"} {this.state.opcionSeleccionada}
+                </Text>
+            </View>
+        </View>
         
          
       );
@@ -79,13 +86,21 @@ class TresBotones extends React.Component {
 
   const esTresBotones = StyleSheet.create({
     container: {
-      padding: 5,
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
+        flex: 1,
+        flexDirection: 'column'
     },
     textButton: {
-      padding: 20
+        padding: 20
+    },
+    botones:{
+        padding: 5,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    viewRespuesta: {
+        backgroundColor: "#c885ba",
+        borderRadius: 20
     }
   });
 

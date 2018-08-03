@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Imagenes from '../utils/Images';
 
-var { altoVentana, anchoVentana } = Dimensions.get('window');
+
 
 export default class LoginPage extends Component {
 
@@ -26,6 +26,8 @@ export default class LoginPage extends Component {
     constructor(props){
         super(props);
     }
+
+   
 
     _userLogin = () =>{
         this.setState({consultando: true, mensaje: ''});
@@ -42,7 +44,7 @@ export default class LoginPage extends Component {
         }
         formBody = formBody.join("&");
         var proceed = false;
-        fetch("http://desarrollo.yesynergy.com/admin/index.php/mobile/autenticarEstudiante", {
+        fetch("http://admin.yesynergy.com/index.php/mobile/autenticarEstudiante", {
             method: "POST", 
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -51,8 +53,13 @@ export default class LoginPage extends Component {
           })
           .then((response) => response.json())
           .then((response) => {
-            if (response.error) this.setState({mensaje: response.mensaje});
-            else proceed = true;
+            if (response.error){
+                this.setState({mensaje: response.mensaje});
+            }else{ 
+                this.setState({mensaje: response.mensaje});
+                proceed = true;
+            }
+
           })
           .then(() => {
             this.setState({consultando: false})
@@ -82,9 +89,10 @@ export default class LoginPage extends Component {
                 <View style={estilos.encabezado}>
                     <Image
                         source={Imagenes.logoLogin}
+                        style={{paddingBottom:10}}
                     />
                     <Text style={estilos.textoEncabezado}>
-                        Inicio de Sesión
+                        Inicio de Sesión 
                     </Text>
                 </View>
                 <View style={estilos.formulario}>
@@ -125,7 +133,7 @@ export default class LoginPage extends Component {
                 <View style={estilos.mensajes}>
                 {this.state.consultando && <ActivityIndicator/>}
                 {!!this.state.mensaje && (
-                    <Text>
+                    <Text style={estilos.textoMensajes}>
                         {this.state.mensaje}
                     </Text>
                 )}
@@ -142,9 +150,6 @@ const estilos = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#ffffff'
     },
-    box: {
-        height: altoVentana / 3
-    },
     encabezado: {
         paddingTop: 60,
         paddingBottom: 20,
@@ -156,8 +161,8 @@ const estilos = StyleSheet.create({
         fontWeight: 'bold'
     },
     formulario: {
-        flex:2,
-        paddingTop: 20
+        flex:1,
+        paddingTop: 5
     },
     viewInput: {
         padding: 10
@@ -171,7 +176,12 @@ const estilos = StyleSheet.create({
         width: 290
     },
     mensajes: {
-        paddingTop:10
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textoMensajes: {
+        fontSize: 15
     },
     cajaTexto: {
         textAlign: 'center',

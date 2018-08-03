@@ -16,7 +16,13 @@ export default class PaginaUser extends React.Component {
         cargando: true,
         paginas: [{
                 html: 'Cargando',
-                tipo: 1
+                tipo: 1,
+                id1: "-",
+                id2: "-",
+                id3: "-",
+                val1: "-",
+                val2: "-",
+                val3: "-"
             }]
         }
     
@@ -35,7 +41,13 @@ export default class PaginaUser extends React.Component {
             cargando: true,
             paginas: [{
                 html: 'Cargando',
-                tipo: 1
+                tipo: 1,
+                id1: "-",
+                id2: "-",
+                id3: "-",
+                val1: "-",
+                val2: "-",
+                val3: "-"
             }]
         };
 
@@ -45,7 +57,8 @@ export default class PaginaUser extends React.Component {
 
     //+    this.state.Nivel+'/'+this.state.unidad+'/'+this.state.libro
     componentDidMount(){
-        return fetch('http://admin.yesynergy.com/index.php/mobile/getPaginasJSON/A1/1/book')
+        let URL_consulta = "http://admin.yesynergy.com/index.php/mobile/getPaginasJSON/"+this.state.Nivel+"/"+this.state.Unidad+"/"+this.state.Libro;
+        return fetch(URL_consulta)
             .then( response => response.json())
             .then( responseJson => this.setState({ cargando: false, paginas: responseJson }) )
             .catch((error) =>{
@@ -62,6 +75,7 @@ export default class PaginaUser extends React.Component {
             this.setState({
                 pagina: this.state.pagina + 1
             });
+
         }
     }
 
@@ -97,11 +111,17 @@ export default class PaginaUser extends React.Component {
                 <Content>
                     <Card>
                         <CardItem>
-                            <Body>
+                            <Body >
                                 
                                 <RenderHTML
                                     html = {this.state.paginas[this.state.pagina].html}
                                     tipo = {this.state.paginas[this.state.pagina].tipo}
+                                    id1 = {this.state.paginas[this.state.pagina].id1}
+                                    id2 = {this.state.paginas[this.state.pagina].id2}
+                                    id3 = {this.state.paginas[this.state.pagina].id3}
+                                    val1 = {this.state.paginas[this.state.pagina].val1}
+                                    val2 = {this.state.paginas[this.state.pagina].val2}
+                                    val3 = {this.state.paginas[this.state.pagina].val3}
                                     ref = { instancia => { this.renderHTML = instancia }}
                                 />
                             </Body>
