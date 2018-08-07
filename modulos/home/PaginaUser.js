@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, View, ToastAndroid } from 'react-native';
 import { Container, Content, Text, ListItem, Button, Card, CardItem, Body } from 'native-base';
 import Imagenes from '../utils/Images';
 import Breadcrumb from 'react-native-breadcrumb';  
@@ -60,7 +60,10 @@ export default class PaginaUser extends React.Component {
         let URL_consulta = "http://admin.yesynergy.com/index.php/mobile/getPaginasJSON/"+this.state.Nivel+"/"+this.state.Unidad+"/"+this.state.Libro;
         return fetch(URL_consulta)
             .then( response => response.json())
-            .then( responseJson => this.setState({ cargando: false, paginas: responseJson }) )
+            .then( responseJson =>  {
+                this.setState({ cargando: false, paginas: responseJson }); 
+                
+            })
             .catch((error) =>{
             console.error(error);
         });
@@ -70,27 +73,30 @@ export default class PaginaUser extends React.Component {
     }
 
     _siguiente = () =>{
-        this.renderHTML._siguiente();
+        
         if (this.state.pagina +1 != this.state.paginas.length){
             this.setState({
                 pagina: this.state.pagina + 1
+            }, () => {
+                this.renderHTML._renderPagina(this.state.paginas[this.state.pagina]);
             });
-
+            
         }
+        this.forceUpdate();
     }
 
     _anterior = () =>{       
-        this.renderHTML._anterior(); 
         if (this.state.pagina -1 > -1){
             this.setState({
                 pagina: this.state.pagina -1 
-            });
+            }, () => {
+                this.renderHTML._renderPagina(this.state.paginas[this.state.pagina]);
+            });   
         }
-        
+        this.forceUpdate();
     }
 
     render(){
-
         if (this.state.cargando == true ){
             return (
               <View>
@@ -114,6 +120,9 @@ export default class PaginaUser extends React.Component {
                             <Body >
                                 
                                 <RenderHTML
+                                    libro = {this.state.Libro}
+                                    unidad = {this.state.Unidad}
+                                    nivel = {this.state.Nivel}
                                     html = {this.state.paginas[this.state.pagina].html}
                                     tipo = {this.state.paginas[this.state.pagina].tipo}
                                     id1 = {this.state.paginas[this.state.pagina].id1}

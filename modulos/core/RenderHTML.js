@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import HTML from 'react-native-render-html';
-import { Button, Grid, Col, Row, Content, CardItem, Card, Body } from 'native-base';
 import DosBotones  from './templates/DosBotones';
 import TresBotones from './templates/TresBotones';
 import CajaTexto from './templates/CajaTexto';
@@ -15,6 +14,9 @@ export default class RenderHTML extends React.Component {
     constructor(props){
       super(props);
       this.state = {
+        libro: this.props.Libro,
+        unidad = this.props.unidad,
+        nivel: this.props.nivel,
         html: this.props.html,
         tipo: this.props.tipo,
         id1: this.props.id1,
@@ -27,32 +29,29 @@ export default class RenderHTML extends React.Component {
       this.botones = React.createRef();
     }
 
-
-    _siguiente = () => {
-      
+    _renderPagina = (pagina) => {
       this.botones._guardar();
       this.setState({
-        html: '',
-        tipo: 0
-      });
-    }
-    _anterior = () => {
-      
-      this.botones._guardar();
+          html: pagina.html,
+          tipo: pagina.tipo,
+          id1: pagina.id1,
+          id2: pagina.id2,
+          id3: pagina.id3,
+          val1: pagina.val1,
+          val2: pagina.val2,
+          val3: pagina.val3
+        }, () => {
+          this.updateHtml();
+        });
     }
 
-    componentDidUpdate(prevProps) {
-      if(this.props.html !== prevProps.html) {
-        this.updateHtml();
-      }
-    } 
   
     updateHtml(){
       this.setState(this.state);
     }
 
     shouldComponentUpdate(nextProps){
-      return nextProps.html !== this.state.html;
+      return nextProps.html !== this.state.html || nextProps.val3 !== this.state.val3;
     }
   
   
@@ -64,20 +63,23 @@ export default class RenderHTML extends React.Component {
         <ScrollView style={estilos.container}>
           <View>
             <HTML 
-              html={this.props.html}
+              html={this.state.html}
             /> 
           </View>
           <View style={estilos.viewBotones}>
-              { this.props.tipo == 1 && 
+              { this.state.tipo == 1 && 
               <DosBotones 
                   ref = { instancia => { this.botones = instancia }}
+                  libro = {this.props.libro}
+                  unidad = {this.props.unidad}
+                  nivel = {this.props.nivel}
                   id1 = {this.state.id1}
                   id2 = {this.state.id2}
                   val1 = {this.state.val1}
                   val2 = {this.state.val2}
               />
               }
-              { this.props.tipo == 2 && 
+              { this.state.tipo == 2 && 
               <TresBotones 
                   ref = { instancia => { this.botones = instancia }}
                   id1 = {this.state.id1}
@@ -88,7 +90,7 @@ export default class RenderHTML extends React.Component {
                   val3 = {this.state.val3}
               />
               }
-              { this.props.tipo == 3 && 
+              { this.state.tipo == 3 && 
               <CajaTexto 
                   ref = { instancia => { this.botones = instancia }}
               />

@@ -5,21 +5,23 @@ import { Grid, Col, Button, Toast } from 'native-base';
 
 class TresBotones extends React.Component {
 
-    state = {
-        id1: this.props.id1,
-        id2: this.props.id2,
-        id3: this.props.id3,
-        val1: this.props.val1,
-        val2: this.props.val2,
-        val3: this.props.val3,
-        opcionSeleccionada: '-'
+    
+
+    constructor(props){
+        super(props);    
+        this.state = {
+            id1: this.props.id1,
+            id2: this.props.id2,
+            id3: this.props.id3,
+            val1: this.props.val1,
+            val2: this.props.val2,
+            val3: this.props.val3,
+            opcionSeleccionada: '-'
+            
+        }
         
     }
 
-    constructor(props){
-      super(props);    
-
-    }
 
     _selOpcion1 =() =>{
         this.setState({
