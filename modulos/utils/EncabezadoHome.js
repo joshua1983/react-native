@@ -20,7 +20,7 @@ export default class EncabezadoHome extends Component {
                 <Body style={styles.Body}>
                     <Grid>
                         <Col></Col>
-                        <Col><Title> Yesynergy </Title></Col>
+                        <Col><Title> {this.props.nombre} </Title></Col>
                         <Col></Col>
                     </Grid>
                 </Body>

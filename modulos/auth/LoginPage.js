@@ -27,7 +27,19 @@ export default class LoginPage extends Component {
         super(props);
     }
 
-   
+    async componentWillMount() {
+    
+        try {
+          await Font.loadAsync({
+            Roboto: require("native-base/Fonts/Roboto.ttf"),
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+            FontAwesome: require('react-native-vector-icons/FontAwesome'),
+            MaterialIcons:require('react-native-vector-icons/MaterialIcons')       
+          });
+        }catch (error) {
+          console.log('error loading icon fonts', error);
+        }
+      }
 
     _userLogin = () =>{
         this.setState({consultando: true, mensaje: ''});
@@ -37,6 +49,7 @@ export default class LoginPage extends Component {
             grant_type: 'password'
         }
         let formBody = [];
+        let datosUsuario = {};
         for (var propiedad in parametros){
             var llaveCod = encodeURIComponent(propiedad);
             var valorCod = encodeURIComponent(parametros[propiedad]);
@@ -57,6 +70,7 @@ export default class LoginPage extends Component {
                 this.setState({mensaje: response.mensaje});
             }else{ 
                 this.setState({mensaje: response.mensaje});
+                datosUsuario = response.usuario;
                 proceed = true;
             }
 
@@ -65,6 +79,7 @@ export default class LoginPage extends Component {
             this.setState({consultando: false})
             if (proceed) {
                 AsyncStorage.setItem('userToken', this.state.usuario);
+                AsyncStorage.setItem('datosUsuario', JSON.stringify(datosUsuario));
                 this.props.navigation.navigate('App');
             }
           })

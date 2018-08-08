@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, AsyncStorage, StatusBar } from 'react-native';
 import { Container, Button, Text,  Grid, Col, Row } from 'native-base';
-import EncabezadoHome  from '../utils/EncabezadoHome';
 import Imagenes from '../utils/Images';
  
 
@@ -14,8 +13,17 @@ const estilos = StyleSheet.create({
 
 export default class HomeUser extends React.Component {
 
+    state = {
+        nombres: '-',
+        apellidos: '-'
+    };
+
+    constructor(props){
+        super(props);
+    }
+
     static navigationOptions = {
-        title: 'Welcome to the Yesynergy!',
+        title: "Bienvenido",
     };
 
     loadBook = () =>{
@@ -27,12 +35,25 @@ export default class HomeUser extends React.Component {
     _signOutAsync = async () => {
         await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
-    };
+    }
+
+    componentDidMount(){
+
+        AsyncStorage.getItem('datosUsuario')
+            .then(value => {
+                this.setState(JSON.parse(value))
+            })
+            .done(() => {
+            });
+    }
 
     render(){
         return (
             <Container>
-                <EncabezadoHome />
+                <StatusBar
+                    backgroundColor="blue"
+                    barStyle="light-content"
+                />
                 <Grid style={{padding: 10}}>
                     <Row>
                         <Col></Col>

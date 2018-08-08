@@ -17,7 +17,6 @@ export default class AuthLoadingScreen extends React.Component {
     this.state = {
         cargando: true
     }
-    this._bootstrapAsync();
   }
 
   // Fetch the token from storage then navigate to our appropriate place
@@ -26,6 +25,7 @@ export default class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
+    
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
@@ -38,11 +38,11 @@ export default class AuthLoadingScreen extends React.Component {
         FontAwesome: require('react-native-vector-icons/FontAwesome'),
         MaterialIcons:require('react-native-vector-icons/MaterialIcons')       
       });
-      this.setState({ fontLoaded: true });
-    } catch (error) {
+      this.setState({ cargando: false });
+    }catch (error) {
       console.log('error loading icon fonts', error);
     }
-    
+    this._bootstrapAsync();
   }
 
   // Render any loading content that you like here

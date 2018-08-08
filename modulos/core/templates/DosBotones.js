@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, Platform, ToastAndroid, AsyncStorage } from 'react-native';
 import { Button } from 'native-base';
 import FormData from 'FormData';
 
@@ -37,6 +37,7 @@ class DosBotones extends React.Component {
     }
 
     _guardar = () =>{
+        
 
         let formData = new FormData();
         formData.append('libro', this.state.libro);

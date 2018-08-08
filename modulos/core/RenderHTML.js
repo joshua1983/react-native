@@ -15,7 +15,7 @@ export default class RenderHTML extends React.Component {
       super(props);
       this.state = {
         libro: this.props.Libro,
-        unidad = this.props.unidad,
+        unidad: this.props.unidad,
         nivel: this.props.nivel,
         html: this.props.html,
         tipo: this.props.tipo,
