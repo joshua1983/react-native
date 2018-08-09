@@ -8,7 +8,6 @@ import PaginaUser from './modulos/home/PaginaUser';
 import AuthLoadingScreen from './modulos/auth/AuthLoadingScreen';
 
 
-
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 const AppStack = createStackNavigator({ 

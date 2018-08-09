@@ -33,10 +33,10 @@ export default class AuthLoadingScreen extends React.Component {
     
     try {
       await Font.loadAsync({
-        Roboto: require("native-base/Fonts/Roboto.ttf"),
-        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-        FontAwesome: require('react-native-vector-icons/FontAwesome'),
-        MaterialIcons:require('react-native-vector-icons/MaterialIcons')       
+        'Roboto': require("native-base/Fonts/Roboto.ttf"),
+        'Roboto_medium': require("../../assets/fonts/Roboto_medium.ttf"),
+        'FontAwesome': require('react-native-vector-icons/FontAwesome'),
+        'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
       });
       this.setState({ cargando: false });
     }catch (error) {

@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, AsyncStorage, StatusBar } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Container, Button, Text,  Grid, Col, Row } from 'native-base';
+import { AppLoading, Font } from 'expo';
 import Imagenes from '../utils/Images';
  
 
@@ -37,9 +38,19 @@ export default class HomeUser extends React.Component {
         this.props.navigation.navigate('Auth');
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        try {
+            await Font.loadAsync({
+              'Roboto': require("native-base/Fonts/Roboto.ttf"),
+              'Roboto_medium': require("../../assets/fonts/Roboto_medium.ttf"),
+              'FontAwesome': require('react-native-vector-icons/FontAwesome'),
+              'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
+            });
+        }catch (error) {
+            console.log('error loading icon fonts', error);
+        }
 
-        AsyncStorage.getItem('datosUsuario')
+        await AsyncStorage.getItem('datosUsuario')
             .then(value => {
                 this.setState(JSON.parse(value))
             })
@@ -50,10 +61,6 @@ export default class HomeUser extends React.Component {
     render(){
         return (
             <Container>
-                <StatusBar
-                    backgroundColor="blue"
-                    barStyle="light-content"
-                />
                 <Grid style={{padding: 10}}>
                     <Row>
                         <Col></Col>
