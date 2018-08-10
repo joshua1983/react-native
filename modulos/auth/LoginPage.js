@@ -37,7 +37,7 @@ export default class LoginPage extends Component {
             MaterialIcons:require('react-native-vector-icons/MaterialIcons')       
           });
         }catch (error) {
-          console.log('error loading icon fonts', error);
+          //console.log('error loading icon fonts', error);
         }
       }
 

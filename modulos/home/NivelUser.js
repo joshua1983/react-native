@@ -8,13 +8,13 @@ import Breadcrumb from 'react-native-breadcrumb';
 export default class NivelUser extends React.Component {
 
     
-    niveles = ["A1", "A2.1", "A2.2", "B1.1", "B1.2", "B2"];
     state = {
-        Libro: ''
+        Libro: '',
+        niveles:["A1", "A2.1", "A2.2", "B1.1", "B1.2", "B2"]
     }
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
     }
 
     componentWillMount(){
@@ -24,6 +24,26 @@ export default class NivelUser extends React.Component {
             Libro: libro,
             Nivel: '-'
         });
+        let url = "http://admin.yesynergy.com/index.php/mobile/getNivelesEstudiante/755"+this.props.idUsuario;
+
+        fetch(url, {
+                method: "GET"
+            })
+            .then((response) => response.json())
+            .then((response) => {
+                if (Array.isArray(response)){
+                    this.setState({
+                        niveles: response
+                    })
+                }else{
+                    this.setState({
+                        niveles:[]
+                    })
+                }
+                
+
+            });
+        
     }
 
     loadUnidad = (nivel) => {
@@ -50,7 +70,7 @@ export default class NivelUser extends React.Component {
                 
             <Text style={estilos.titulo}>Seleccione el nivel</Text>
             <Content style={{padding: 10}}>
-                {this.niveles.map(r => {
+                {this.state.niveles.map(r => {
                     return (
                         
 

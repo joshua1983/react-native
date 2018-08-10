@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { AppLoading, Font } from 'expo';
 
 
@@ -8,6 +7,7 @@ import {
   AsyncStorage,
   StatusBar,
   View,
+  Text
 } from 'react-native';
 
 
@@ -16,7 +16,7 @@ export default class AuthLoadingScreen extends React.Component {
     super(props);
     this.state = {
         cargando: true
-    }
+    }    
   }
 
   // Fetch the token from storage then navigate to our appropriate place
@@ -26,37 +26,40 @@ export default class AuthLoadingScreen extends React.Component {
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     
+    this.setState({ cargando: false });
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
-  async componentWillMount() {
-    
-    try {
-      await Font.loadAsync({
-        'Roboto': require("native-base/Fonts/Roboto.ttf"),
-        'Roboto_medium': require("../../assets/fonts/Roboto_medium.ttf"),
-        'FontAwesome': require('react-native-vector-icons/FontAwesome'),
-        'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
-      });
-      this.setState({ cargando: false });
-    }catch (error) {
-      console.log('error loading icon fonts', error);
-    }
+  _cargarFuentes = async () =>{
+    try{
+    await Font.loadAsync({
+      'Roboto': require("native-base/Fonts/Roboto.ttf"),
+      'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
+      'FontAwesome': require('react-native-vector-icons/FontAwesome'),
+      'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
+    }); 
+  }catch(e){
+
+  }  
     this._bootstrapAsync();
   }
+
+  componentWillMount(){
+    this._cargarFuentes();
+  }
+
+
 
   // Render any loading content that you like here
   render() {
     if (this.state.cargando) {
-        return <AppLoading />;
+        return <AppLoading/>;
     }
     return (
-    <Provider store={store}>
         <View style={{ backgroundColor: '#ffffff' }}>
             <ActivityIndicator />
             <StatusBar barStyle="default" />
         </View>
-    </Provider>
     );
   }
 }

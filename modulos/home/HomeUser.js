@@ -16,7 +16,8 @@ export default class HomeUser extends React.Component {
 
     state = {
         nombres: '-',
-        apellidos: '-'
+        apellidos: '-',
+        cargando: true
     };
 
     constructor(props){
@@ -38,27 +39,35 @@ export default class HomeUser extends React.Component {
         this.props.navigation.navigate('Auth');
     }
 
-    async componentDidMount(){
+    async componentWillMount(){
+        console.log("paso1");
         try {
             await Font.loadAsync({
               'Roboto': require("native-base/Fonts/Roboto.ttf"),
-              'Roboto_medium': require("../../assets/fonts/Roboto_medium.ttf"),
+              'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
               'FontAwesome': require('react-native-vector-icons/FontAwesome'),
-              'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
+              'MaterialIcons':require('react-native-vector-icons/MaterialIcons')         
             });
         }catch (error) {
             console.log('error loading icon fonts', error);
         }
-
+        
+        console.log("fuentes cargadas");
+        
         await AsyncStorage.getItem('datosUsuario')
             .then(value => {
                 this.setState(JSON.parse(value))
             })
             .done(() => {
             });
+        console.log("datos cargados");
+        this.setState({cargando: false})
     }
 
     render(){
+        if (this.state.cargando) {
+            return <AppLoading/>;
+        }
         return (
             <Container>
                 <Grid style={{padding: 10}}>
