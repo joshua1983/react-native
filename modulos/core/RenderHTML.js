@@ -24,7 +24,10 @@ export default class RenderHTML extends React.Component {
         id3: this.props.id3,
         val1: this.props.val1,
         val2: this.props.val2,
-        val3: this.props.val3
+        val3: this.props.val3,
+        lbl1: this.props.lbl1,
+        lbl2: this.props.lbl2,
+        lbl3: this.props.lbl3
       }
       this.botones = React.createRef();
     }
@@ -39,7 +42,10 @@ export default class RenderHTML extends React.Component {
           id3: pagina.id3,
           val1: pagina.val1,
           val2: pagina.val2,
-          val3: pagina.val3
+          val3: pagina.val3,
+          lbl1: pagina.lbl1,
+          lbl2: pagina.lbl2,
+          lbl3: pagina.lbl3
         }, () => {
           this.updateHtml();
         });
@@ -77,6 +83,8 @@ export default class RenderHTML extends React.Component {
                   id2 = {this.state.id2}
                   val1 = {this.state.val1}
                   val2 = {this.state.val2}
+                  lbl1 = {this.state.lbl1}
+                  lbl2 = {this.state.lbl2}
               />
               }
               { this.state.tipo == 2 && 
@@ -88,6 +96,9 @@ export default class RenderHTML extends React.Component {
                   val1 = {this.state.val1}
                   val2 = {this.state.val2}
                   val3 = {this.state.val3}
+                  lbl1 = {this.state.lbl1}
+                  lbl2 = {this.state.lbl2}
+                  lbl3 = {this.state.lbl3}
               />
               }
               { this.state.tipo == 3 && 

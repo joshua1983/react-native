@@ -8,14 +8,26 @@ import Breadcrumb from 'react-native-breadcrumb';
 export default class UnidadUser extends React.Component {
 
     
-    unidades = ["1", "2", "3", "4", "5", "6", "7", "8"];
     state = {
+        Id: 0,
         Libro: '',
-        Nivel: ''
+        Nivel: '',
+        Unidades: []
     }
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        let libro = this.props.navigation.getParam('Libro', '-');
+        let nivel = this.props.navigation.getParam('Nivel', '-');
+        let idUsuario = this.props.navigation.getParam('Id', '-');
+        this.state.Libro = libro;
+        if (nivel == 'A21') nivel= 'A2.1';
+        if (nivel == 'A22') nivel= 'A2.2';
+        if (nivel == 'B11') nivel= 'B1.1';
+        if (nivel == 'B12') nivel= 'B1.2';
+        this.state.Nivel = nivel;
+        this.state.Id = idUsuario;
+        this._getUnidadesUsuario(idUsuario);
     }
 
     loadPagina = (pagina) => {
@@ -25,10 +37,37 @@ export default class UnidadUser extends React.Component {
             Unidad: pagina
         });
     }
+
+    _getUnidadesUsuario(id){
+        let url = "http://admin.yesynergy.com/index.php/mobile/getUnidadesEstudiante/"+id+"/"+this.state.Nivel.replace('.','');
+        
+        fetch(url, {
+                method: "GET"
+            })
+            .then((response) => response.json())
+            .then((response) => {
+                if (Array.isArray(response)){
+                    this.setState({
+                        Unidades: response,
+                        cargando:false
+                    })
+                }else{
+                    this.setState({
+                        Unidades:[]
+                    })
+                }
+                
+
+            });
+    }
     
     componentWillMount(){
         let libro = this.props.navigation.getParam('Libro', '-');
         let nivel = this.props.navigation.getParam('Nivel', '-');
+        if (nivel == 'A21') nivel= 'A2.1';
+        if (nivel == 'A22') nivel= 'A2.2';
+        if (nivel == 'B11') nivel= 'B1.1';
+        if (nivel == 'B12') nivel= 'B1.2';
         
         this.setState({
             Libro: libro,
@@ -50,7 +89,7 @@ export default class UnidadUser extends React.Component {
                 />
                 <Text style={estilos.titulo}>Seleccione la unidad</Text>
                 <Content style={{padding: 10}}>
-                    {this.unidades.map(r => {
+                    {this.state.Unidades.map(r => {
                         return (
                                 <ListItem key={r} style={estilos.listaItems} onPress = { () => this.loadPagina(r) }>
                                     <Text>Unidad {r}</Text>

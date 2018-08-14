@@ -15,8 +15,7 @@ const estilos = StyleSheet.create({
 export default class HomeUser extends React.Component {
 
     state = {
-        nombres: '-',
-        apellidos: '-',
+        usuario:{},
         cargando: true
     };
 
@@ -24,9 +23,12 @@ export default class HomeUser extends React.Component {
         super(props);
     }
 
-    static navigationOptions = {
-        title: "Bienvenido",
-    };
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: navigation.getParam('otherParam', 'Bienvenido'),
+        };
+      };
+    
 
     loadBook = () =>{
         this.props.navigation.navigate('Nivel',{
@@ -40,7 +42,6 @@ export default class HomeUser extends React.Component {
     }
 
     async componentWillMount(){
-        console.log("paso1");
         try {
             await Font.loadAsync({
               'Roboto': require("native-base/Fonts/Roboto.ttf"),
@@ -52,16 +53,18 @@ export default class HomeUser extends React.Component {
             console.log('error loading icon fonts', error);
         }
         
-        console.log("fuentes cargadas");
         
         await AsyncStorage.getItem('datosUsuario')
             .then(value => {
-                this.setState(JSON.parse(value))
+                let usuario = JSON.parse(value);
+                this.setState({
+                    usuario: usuario,
+                    cargando: false
+                });
+                this.props.navigation.setParams({otherParam: 'Bienvenido '+usuario.nombres + " " + usuario.apellidos})
             })
             .done(() => {
             });
-        console.log("datos cargados");
-        this.setState({cargando: false})
     }
 
     render(){

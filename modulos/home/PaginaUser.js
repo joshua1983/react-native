@@ -23,7 +23,8 @@ export default class PaginaUser extends React.Component {
                 val1: "-",
                 val2: "-",
                 val3: "-"
-            }]
+            }],
+        NoPagina: false
         }
     
 
@@ -47,8 +48,12 @@ export default class PaginaUser extends React.Component {
                 id3: "-",
                 val1: "-",
                 val2: "-",
-                val3: "-"
-            }]
+                val3: "-",
+                lbl1: "-",
+                lbl2: "-",
+                lbl3: "-"
+            }],
+            NoPagina: false
         };
 
         this.renderHTML = React.createRef();
@@ -58,10 +63,16 @@ export default class PaginaUser extends React.Component {
     //+    this.state.Nivel+'/'+this.state.unidad+'/'+this.state.libro
     componentDidMount(){
         let URL_consulta = "http://admin.yesynergy.com/index.php/mobile/getPaginasJSON/"+this.state.Nivel+"/"+this.state.Unidad+"/"+this.state.Libro;
+        
         return fetch(URL_consulta)
             .then( response => response.json())
             .then( responseJson =>  {
-                this.setState({ cargando: false, paginas: responseJson }); 
+                if (responseJson.length == 0){
+                    this.setState({NoPagina: true});
+                }else{
+                    this.setState({ cargando: false, paginas: responseJson, NoPagina: false }); 
+                }
+                
                 
             })
             .catch((error) =>{
@@ -97,6 +108,14 @@ export default class PaginaUser extends React.Component {
     }
 
     render(){
+
+        if (this.state.NoPagina){
+            return (
+                <View>
+                  <Text>Opcion no disponble</Text>
+                </View>
+              );
+        }
         if (this.state.cargando == true ){
             return (
               <View>
@@ -131,6 +150,9 @@ export default class PaginaUser extends React.Component {
                                     val1 = {this.state.paginas[this.state.pagina].val1}
                                     val2 = {this.state.paginas[this.state.pagina].val2}
                                     val3 = {this.state.paginas[this.state.pagina].val3}
+                                    lbl1 = {this.state.paginas[this.state.pagina].lbl1}
+                                    lbl2 = {this.state.paginas[this.state.pagina].lbl2}
+                                    lbl3 = {this.state.paginas[this.state.pagina].lbl3}
                                     ref = { instancia => { this.renderHTML = instancia }}
                                 />
                             </Body>
