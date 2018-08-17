@@ -44,7 +44,7 @@ export default class AuthLoadingScreen extends React.Component {
     this._bootstrapAsync();
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this._cargarFuentes();
   }
 
