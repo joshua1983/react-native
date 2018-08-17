@@ -15,17 +15,20 @@ const estilos = StyleSheet.create({
 export default class HomeUser extends React.Component {
 
     state = {
-        nombres: '-',
-        apellidos: '-'
+        usuario:{},
+        cargando: true
     };
 
     constructor(props){
         super(props);
     }
 
-    static navigationOptions = {
-        title: "Bienvenido",
-    };
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: navigation.getParam('otherParam', 'Bienvenido'),
+        };
+      };
+    
 
     loadBook = () =>{
         this.props.navigation.navigate('Nivel',{
@@ -38,27 +41,36 @@ export default class HomeUser extends React.Component {
         this.props.navigation.navigate('Auth');
     }
 
-    async componentDidMount(){
+    async componentWillMount(){
         try {
             await Font.loadAsync({
               'Roboto': require("native-base/Fonts/Roboto.ttf"),
-              'Roboto_medium': require("../../assets/fonts/Roboto_medium.ttf"),
+              'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
               'FontAwesome': require('react-native-vector-icons/FontAwesome'),
-              'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
+              'MaterialIcons':require('react-native-vector-icons/MaterialIcons')         
             });
         }catch (error) {
             console.log('error loading icon fonts', error);
         }
-
+        
+        
         await AsyncStorage.getItem('datosUsuario')
             .then(value => {
-                this.setState(JSON.parse(value))
+                let usuario = JSON.parse(value);
+                this.setState({
+                    usuario: usuario,
+                    cargando: false
+                });
+                this.props.navigation.setParams({otherParam: 'Bienvenido '+usuario.nombres + " " + usuario.apellidos})
             })
             .done(() => {
             });
     }
 
     render(){
+        if (this.state.cargando) {
+            return <AppLoading/>;
+        }
         return (
             <Container>
                 <Grid style={{padding: 10}}>

@@ -18,6 +18,8 @@ class DosBotones extends React.Component {
             id2: this.props.id2,
             val1: this.props.val1,
             val2: this.props.val2,
+            lbl1: this.props.lbl1,
+            lbl2: this.props.lbl2,
             opcionSeleccionada: '-',
             idSeleccionado: '-'
         }
@@ -80,10 +82,10 @@ class DosBotones extends React.Component {
         <View style={esDosBotones.container}>
             <View style={esDosBotones.botones}>
                 <Button onPress={this._selOpcion1} info>
-                    <Text style={esDosBotones.textButton}> {this.state.val1}</Text>
+                    <Text style={esDosBotones.textButton}> {this.state.lbl1}</Text>
                 </Button>
                 <Button onPress={this._selOpcion2} warning>
-                    <Text style={esDosBotones.textButton}> {this.state.val2}</Text>
+                    <Text style={esDosBotones.textButton}> {this.state.lbl2}</Text>
                 </Button>
                 
            </View>

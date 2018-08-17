@@ -16,6 +16,9 @@ class TresBotones extends React.Component {
             val1: this.props.val1,
             val2: this.props.val2,
             val3: this.props.val3,
+            lbl1: this.props.lbl1,
+            lbl2: this.props.lbl2,
+            lbl3: this.props.lbl3,
             opcionSeleccionada: '-'
             
         }
@@ -65,13 +68,13 @@ class TresBotones extends React.Component {
         <View style={esTresBotones.container}>
             <View style={esTresBotones.botones}>
                 <Button onPress={this._selOpcion1} info>
-                    <Text style={esTresBotones.textButton}> {this.state.val1}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.lbl1}</Text>
                 </Button>
                 <Button onPress={this._selOpcion2} warning>
-                    <Text style={esTresBotones.textButton}> {this.state.val2}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.lbl2}</Text>
                 </Button>
                 <Button onPress={this._selOpcion3} success>
-                    <Text style={esTresBotones.textButton}> {this.state.val3}</Text>
+                    <Text style={esTresBotones.textButton}> {this.state.lbl3}</Text>
                 </Button>
             </View>
             <View style={esTresBotones.viewRespuesta}>

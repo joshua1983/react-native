@@ -34,7 +34,12 @@
   },
   "rnpm": {
     "assets": [
-      "assets/fonts"
+      "assets/fonts/Roboto_medium.ttf",
+      "assets/fonts/Roboto.ttf",
+      "assets/fonts/Roboto.ttf",
+      "assets/fonts/Roboto_medium.ttf",
+      "assets/fonts/FontAwesome",
+      "assets/fonts/MaterialIcons"
     ]
   }
 }
