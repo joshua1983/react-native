@@ -3,6 +3,18 @@
     "sdkVersion": "27.0.0",
     "packagerOpts": {
       "assetExts": ["ttf"]
+    },
+    "splash": {
+      "image": "./assets/intro.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "bundleIdentifier": "com.yesynergy.yemobile",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.yesynergy.yemobile"
     }
   }
 }

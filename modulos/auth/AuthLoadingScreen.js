@@ -1,13 +1,13 @@
 import React from 'react';
-import { AppLoading, Font } from 'expo';
-
+import { AppLoading, Font, Constants } from 'expo';
 
 import {
   ActivityIndicator,
   AsyncStorage,
   StatusBar,
   View,
-  Text
+  Image,
+  StyleSheet
 } from 'react-native';
 
 
@@ -25,10 +25,12 @@ export default class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    
+    setTimeout(this._bootstrapAsync(),6000);
     this.setState({ cargando: false });
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    
   };
+
 
   _cargarFuentes = async () =>{
     try{
@@ -38,10 +40,12 @@ export default class AuthLoadingScreen extends React.Component {
       'FontAwesome': require('react-native-vector-icons/FontAwesome'),
       'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
     }); 
+    
   }catch(e){
 
   }  
-    this._bootstrapAsync();
+
+    
   }
 
   componentDidMount(){
@@ -53,7 +57,11 @@ export default class AuthLoadingScreen extends React.Component {
   // Render any loading content that you like here
   render() {
     if (this.state.cargando) {
-        return <AppLoading/>;
+        return (
+          <View style={styles.container}>
+            <Image source={{uri: 'http://admin.yesynergy.com/img/intro.gif'}} style={{width: 300, height: 300}} />
+          </View>
+        );
     }
     return (
         <View style={{ backgroundColor: '#ffffff' }}>
@@ -63,3 +71,13 @@ export default class AuthLoadingScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#fff',
+  },
+});
