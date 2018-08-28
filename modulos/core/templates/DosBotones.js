@@ -21,19 +21,35 @@ class DosBotones extends React.Component {
             lbl1: this.props.lbl1,
             lbl2: this.props.lbl2,
             opcionSeleccionada: '-',
-            idSeleccionado: '-'
+            idSeleccionado: '-',
+            labelSeleccionada: '-',
+            usuario: '-'
         }
+    }
+
+    async componentWillMount(){
+        await AsyncStorage.getItem('datosUsuario')
+            .then(value => {
+                let usuario = JSON.parse(value);
+                this.setState({
+                    usuario: usuario
+                });
+            })
+            .done(() => {
+            });
     }
 
     _selOpcion1 =() =>{
         this.setState({
             opcionSeleccionada: this.state.val1,
+            labelSeleccionada: this.state.lbl1,
             idSeleccionado: this.state.id1
         });
     }
     _selOpcion2 =() =>{
         this.setState({
             opcionSeleccionada: this.state.val2,
+            labelSeleccionada: this.state.lbl2,
             idSeleccionado: this.state.id2
         });
     }
@@ -46,7 +62,8 @@ class DosBotones extends React.Component {
         formData.append('unidad', this.state.unidad);
         formData.append('nivel', this.state.nivel);
         formData.append('idControl', this.state.idSeleccionado);
-        formData.append('valControl', this.state.valControl);
+        formData.append('valControl', this.state.opcionSeleccionada);
+        formData.append('idUsuario', this.state.usuario.usuidentificador);
 
         return fetch('http://admin.yesynergy.com/index.php/mobile/guardarRespuesta', {
                 method: 'POST',
@@ -63,7 +80,7 @@ class DosBotones extends React.Component {
 
     _informar(){
         if (Platform.OS == 'android'){
-            ToastAndroid.show('Respuesta '+this.state.opcionSeleccionada+' guardada!', ToastAndroid.SHORT);
+            ToastAndroid.show('Respuesta guardada!', ToastAndroid.SHORT);
         }else{
             Alert.alert(
                 'Plataforma',
@@ -91,7 +108,7 @@ class DosBotones extends React.Component {
            </View>
            <View style={esDosBotones.viewRespuesta}>
                 <Text style={{textAlign: 'center'}}>
-                    Seleccion: {"\n"} {this.state.opcionSeleccionada}
+                    Seleccion: {"\n"} {this.state.labelSeleccionada}
                 </Text>
             </View>
         </View>

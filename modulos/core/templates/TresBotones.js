@@ -19,7 +19,9 @@ class TresBotones extends React.Component {
             lbl1: this.props.lbl1,
             lbl2: this.props.lbl2,
             lbl3: this.props.lbl3,
-            opcionSeleccionada: '-'
+            opcionSeleccionada: '-',
+            idSeleccionado: '-',
+            labelSeleccionada: '-'
             
         }
         
@@ -28,17 +30,23 @@ class TresBotones extends React.Component {
 
     _selOpcion1 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.val1
+            opcionSeleccionada: this.state.val1,
+            idSeleccionado: this.state.id1,
+            labelSeleccionada: this.state.lbl1,
         });
     }
     _selOpcion2 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.val2
+            opcionSeleccionada: this.state.val2,
+            idSeleccionado: this.state.id2,
+            labelSeleccionada: this.state.lbl2,
         });
     }
     _selOpcion3 =() =>{
         this.setState({
-            opcionSeleccionada: this.state.val3
+            opcionSeleccionada: this.state.val3,
+            idSeleccionado: this.state.id3,
+            labelSeleccionada: this.state.lbl3,
         });
     }
 
@@ -79,7 +87,7 @@ class TresBotones extends React.Component {
             </View>
             <View style={esTresBotones.viewRespuesta}>
                 <Text style={{textAlign: 'center'}}>
-                    Seleccion: {"\n"} {this.state.opcionSeleccionada}
+                    Seleccion: {"\n"} {this.state.labelSeleccionada}
                 </Text>
             </View>
         </View>

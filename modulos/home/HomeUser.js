@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
-import { Container, Button, Text,  Grid, Col, Row } from 'native-base';
+import { Container, Button, Text,  Grid, Col, Row, View } from 'native-base';
 import { AppLoading, Font } from 'expo';
 import Imagenes from '../utils/Images';
  
@@ -36,9 +36,26 @@ export default class HomeUser extends React.Component {
         });
     }
 
+    loadTest = () => {
+        this.props.navigation.navigate('Nivel',{
+            Libro: 'Test'
+        });
+    }
+
+    loadExtra = () => {
+        this.props.navigation.navigate('Interactive',{
+            Libro: 'Extra'
+        });
+    }
+
     _signOutAsync = async () => {
         await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
+    }
+
+    _cacheSplashResourcesAsync = async () => {
+        const gif = Imagenes.logoIntro;
+        return Asset.fromModule(gif).downloadAsync()
     }
 
     async componentWillMount(){
@@ -67,9 +84,12 @@ export default class HomeUser extends React.Component {
             });
     }
 
+
     render(){
         if (this.state.cargando) {
-            return <AppLoading/>;
+            return (
+                <AppLoading/>
+              );
         }
         return (
             <Container>
@@ -90,20 +110,24 @@ export default class HomeUser extends React.Component {
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Image
-                                style={estilos.imagen}
-                                source={Imagenes.testImg}
-                            />
+                            <TouchableOpacity onPress = { this.loadTest }>
+                                <Image
+                                    style={estilos.imagen}
+                                    source={Imagenes.testImg}
+                                />
+                            </TouchableOpacity>
                         </Col>
                         <Col></Col>
                     </Row>
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Image
-                                style={estilos.imagen}
-                                source={Imagenes.extraFlat}
-                            />
+                            <TouchableOpacity onPress = { this.loadExtra }>
+                                <Image
+                                    style={estilos.imagen}
+                                    source={Imagenes.extraFlat}
+                                />
+                            </TouchableOpacity>
                         </Col>
                         <Col></Col>
                     </Row>
