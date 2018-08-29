@@ -7,9 +7,9 @@ import {
   StatusBar,
   View,
   Image,
-  StyleSheet
+  StyleSheet,
+  Alert
 } from 'react-native';
-import { Button } from 'native-base';
 
 
 export default class AuthLoadingScreen extends React.Component {
@@ -22,8 +22,14 @@ export default class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    setTimeout(this._continuar(),6000);
-    
+    const userToken = await AsyncStorage.getItem('userToken');
+
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+
+    this.setState({ cargando: false });
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
   };
 
 
@@ -35,21 +41,20 @@ export default class AuthLoadingScreen extends React.Component {
           'FontAwesome': require('react-native-vector-icons/FontAwesome'),
           'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
         }); 
-        this._bootstrapAsync();
+        this._continuar();
       }catch(e){
 
       }  
 
   }
 
-  _continuar = async ()=>{
-    const userToken = await AsyncStorage.getItem('userToken');
+  _continuar = () =>{
+    Alert.alert("Test")
+    let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    
-    this.setState({ cargando: false });
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    wait(6000).then( () =>{
+      this._bootstrapAsync();
+    });
     
   }
 
@@ -84,6 +89,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
+    backgroundColor: '#f4f4f4',
   },
 });
