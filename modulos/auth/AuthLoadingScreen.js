@@ -9,6 +9,7 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
+import { Button } from 'native-base';
 
 
 export default class AuthLoadingScreen extends React.Component {
@@ -21,32 +22,37 @@ export default class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    setTimeout(this._bootstrapAsync(),6000);
-    this.setState({ cargando: false });
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    setTimeout(this._continuar(),6000);
     
   };
 
 
   _cargarFuentes = async () =>{
-    try{
-    await Font.loadAsync({
-      'Roboto': require("native-base/Fonts/Roboto.ttf"),
-      'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
-      'FontAwesome': require('react-native-vector-icons/FontAwesome'),
-      'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
-    }); 
+        try{
+        await Font.loadAsync({
+          'Roboto': require("native-base/Fonts/Roboto.ttf"),
+          'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
+          'FontAwesome': require('react-native-vector-icons/FontAwesome'),
+          'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
+        }); 
+        this._bootstrapAsync();
+      }catch(e){
+
+      }  
+
+  }
+
+  _continuar = async ()=>{
+    const userToken = await AsyncStorage.getItem('userToken');
+
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
     
-  }catch(e){
-
-  }  
-
+    this.setState({ cargando: false });
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
     
   }
+
 
   componentDidMount(){
     this._cargarFuentes();

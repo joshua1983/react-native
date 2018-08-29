@@ -5,7 +5,7 @@
       "assetExts": ["ttf"]
     },
     "splash": {
-      "image": "./assets/intro.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
