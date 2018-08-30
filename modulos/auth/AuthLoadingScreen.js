@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppLoading, Font, Constants } from 'expo';
-
+import LoadingScreen from '../utils/LoadingScreen';
 import {
   ActivityIndicator,
   AsyncStorage,
@@ -8,16 +8,20 @@ import {
   View,
   Image,
   StyleSheet,
-  Alert
+  Text,
+  Button
 } from 'react-native';
 
 
+
 export default class AuthLoadingScreen extends React.Component {
+  state = {
+    cargando: true
+  }  
+
   constructor(props) {
     super(props);
-    this.state = {
-        cargando: true
-    }    
+      
   }
 
   // Fetch the token from storage then navigate to our appropriate place
@@ -27,42 +31,32 @@ export default class AuthLoadingScreen extends React.Component {
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
 
-    this.setState({ cargando: false });
+    
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
   };
 
+  _cambiarEstado = () => {
+    this.setState({
+      cargando: false
+    });
+    this._bootstrapAsync();
+  }
 
-  _cargarFuentes = async () =>{
-        try{
+  async componentDidMount(){
+      try{
         await Font.loadAsync({
           'Roboto': require("native-base/Fonts/Roboto.ttf"),
           'Roboto_medium': require("native-base/Fonts/Roboto_medium.ttf"),
           'FontAwesome': require('react-native-vector-icons/FontAwesome'),
           'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
         }); 
-        this._continuar();
-      }catch(e){
-
-      }  
-
-  }
-
-  _continuar = () =>{
-    Alert.alert("Test")
-    let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-    wait(6000).then( () =>{
+      this.setState({ cargando: false });
       this._bootstrapAsync();
-    });
-    
+    }catch(e){
+
+    } 
   }
-
-
-  componentDidMount(){
-    this._cargarFuentes();
-  }
-
 
 
   // Render any loading content that you like here
@@ -70,7 +64,14 @@ export default class AuthLoadingScreen extends React.Component {
     if (this.state.cargando) {
         return (
           <View style={styles.container}>
-            <Image source={{uri: 'http://admin.yesynergy.com/img/intro.gif'}} style={{width: 300, height: 300}} />
+            <LoadingScreen />
+            <View style={styles.viewButton}>
+              <Button 
+                  onPress={this._cambiarEstado}
+                  title="Entrar"
+                  color = "#3aa849"
+              />
+            </View>
           </View>
         );
     }
@@ -90,5 +91,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#f4f4f4',
+  },
+  viewButton: {
+    width: 290
   },
 });
