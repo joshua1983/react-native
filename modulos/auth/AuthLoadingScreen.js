@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppLoading, Font, Constants } from 'expo';
-import LoadingScreen from '../utils/LoadingScreen';
 import {
   ActivityIndicator,
   AsyncStorage,
@@ -36,14 +35,7 @@ export default class AuthLoadingScreen extends React.Component {
 
   };
 
-  _cambiarEstado = () => {
-    this.setState({
-      cargando: false
-    });
-    this._bootstrapAsync();
-  }
-
-  async componentDidMount(){
+  async componentWillMount(){
       try{
         await Font.loadAsync({
           'Roboto': require("native-base/Fonts/Roboto.ttf"),
@@ -52,10 +44,11 @@ export default class AuthLoadingScreen extends React.Component {
           'MaterialIcons':require('react-native-vector-icons/MaterialIcons')       
         }); 
       this.setState({ cargando: false });
-      this._bootstrapAsync();
+      
     }catch(e){
 
     } 
+    this._bootstrapAsync();
   }
 
 
@@ -64,14 +57,7 @@ export default class AuthLoadingScreen extends React.Component {
     if (this.state.cargando) {
         return (
           <View style={styles.container}>
-            <LoadingScreen />
-            <View style={styles.viewButton}>
-              <Button 
-                  onPress={this._cambiarEstado}
-                  title="Entrar"
-                  color = "#3aa849"
-              />
-            </View>
+            <AppLoading />
           </View>
         );
     }
