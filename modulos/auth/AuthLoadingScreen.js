@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f4f4f4',
   },
   viewButton: {
+    flex:1,
     width: 290
   },
 });

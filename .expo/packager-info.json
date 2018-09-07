@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19004,
-  "packagerPort": 19005,
-  "packagerPid": 70535,
-  "expoServerNgrokUrl": "https://9m-fm4.joshua1983.react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.9m-fm4.joshua1983.react-native.exp.direct",
-  "ngrokPid": 70548
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

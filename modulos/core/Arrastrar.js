@@ -2,7 +2,8 @@ import React from 'react';
 import {
     StyleSheet,
     PanResponder,
-    Animated
+    Animated,
+    Text
 } from 'react-native';
 
 
@@ -36,7 +37,7 @@ export default class Arrastrar extends React.Component{
                 this.state.pan.setValue({x: 0, y: 0});
             },
             onPanResponderRelease:(e, gesture) => {
-
+/*
                 if (this.isDropArea(gesture)){
                     Animated.timing(this.state.opacity,{
                         toValue: 0,
@@ -57,6 +58,7 @@ export default class Arrastrar extends React.Component{
                     toValue: {x:0, y:0},
                     friction: 5
                 }).start();
+                */
             }
             
         });
@@ -72,8 +74,10 @@ export default class Arrastrar extends React.Component{
         return (
             <Animated.View
                 { ...this.panResponder.panHandlers }
-                style={[panStyle, styles.circle]}
-            />
+                style={[panStyle, styles.rectangulo]}
+            >
+                <Text>{this.props.respuesta}</Text>
+            </Animated.View>
         )
     }
 }
@@ -85,5 +89,12 @@ let styles = StyleSheet.create({
         width: RADIO_CIRCULO * 2,
         height: RADIO_CIRCULO * 2,
         borderRadius: RADIO_CIRCULO 
+    },
+    rectangulo:{
+        backgroundColor: "skyblue",
+        width: 80,
+        height: 30,
+        borderRadius: 5,
+        justifyContent: "center"
     }
 })
