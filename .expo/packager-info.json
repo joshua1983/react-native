@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 31498,
-  "expoServerNgrokUrl": "https://yr-dgi.joshua1983.react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.yr-dgi.joshua1983.react-native.exp.direct",
-  "ngrokPid": 31509
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

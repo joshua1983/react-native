@@ -8,8 +8,10 @@ import {
   Image,
   StyleSheet,
   Text,
-  Button
+  Button,
+  ImageBackground
 } from 'react-native';
+import Imagenes from '../utils/Images';
 
 
 
@@ -63,8 +65,10 @@ export default class AuthLoadingScreen extends React.Component {
     }
     return (
         <View style={{ backgroundColor: '#ffffff' }}>
+          
             <ActivityIndicator />
             <StatusBar barStyle="default" />
+
         </View>
     );
   }

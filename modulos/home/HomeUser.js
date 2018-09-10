@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, AsyncStorage, ImageBackground } from 'react-native';
 import { Container, Button, Text,  Grid, Col, Row, View } from 'native-base';
 import { AppLoading, Font } from 'expo';
 import Imagenes from '../utils/Images';
@@ -11,6 +11,9 @@ const estilos = StyleSheet.create({
         width: 100
     }
 });
+
+
+
 
 export default class HomeUser extends React.Component {
 
@@ -92,7 +95,13 @@ export default class HomeUser extends React.Component {
               );
         }
         return (
+            
             <Container>
+                <ImageBackground 
+                source={Imagenes.fondoHome} 
+                style={{width: '100%', height: '100%', flex:1}}
+                resizeMode='cover' 
+                >
                 <Grid style={{padding: 10}}>
                     <Row>
                         <Col></Col>
@@ -145,10 +154,20 @@ export default class HomeUser extends React.Component {
                         
                     </Row>
                 </Grid>
-                
+                </ImageBackground>
             </Container>
+            
         )
 
     }
 }
 
+const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: null,
+        height: null,
+        resizeMode: 'cover',
+        position: 'absolute'
+    }
+});
