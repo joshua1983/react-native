@@ -5,9 +5,9 @@
       "assetExts": ["ttf"]
     },
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/intro.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#872386"
     },
     "ios": {
       "bundleIdentifier": "com.yesynergy.yemobile",

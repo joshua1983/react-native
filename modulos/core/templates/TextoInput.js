@@ -1,17 +1,23 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, ScrollView, Dimensions,  Platform, ToastAndroid } from 'react-native';
-import {Textarea, Content, Form} from 'native-base';
+import { Content, Text} from 'native-base';
 
 
-class CajaTexto extends React.Component {
+class TextoInput extends React.Component {
 
     state = {
-        texto: ''
+        texto: '',
+        id: '',
+        lbl: '',
+        val: ''
     }
 
     constructor(props){
       super(props);    
       this._actualizaTexto = this._actualizaTexto.bind(this);
+      this.state.id = this.props.id;
+      this.state.lbl = this.props.lbl;
+      this.state.val = this.props.val;
     }
 
     _guardar(){
@@ -43,21 +49,16 @@ class CajaTexto extends React.Component {
     render() {
       return (
 
-            <Content padder>
-                <Form>
-                    <View style={esTextarea.container} >
-                    <TextInput 
-                    underlineColorAndroid="transparent"
+            
+                <View style={esTextarea.container}>
+                <Text style={esTextarea.cajaNumero}>{this.state.lbl}</Text>
+                    <TextInput
+                    name={this.state.id}
                     style={esTextarea.cajaTexto}
-                    value={this.state.texto} 
-                    onChange={this._actualizaTexto} 
-                    rowSpan={5} bordered  />
-                    </View>
-                </Form>
-            </Content>
-                
-        
-         
+                    underlineColorAndroid="transparent"
+                    />
+                </View>
+            
       );
     }
   }
@@ -66,20 +67,29 @@ class CajaTexto extends React.Component {
     container: {
       padding: 5,
       flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'space-between'
+      flexDirection: 'row'
     },
-    textButton: {
-      padding: 20
+    cajaNumero:{
+        backgroundColor:'#2ab041',
+        borderWidth: 1,
+        borderColor:'#2ab041',
+        padding: 5,
+        color: 'white',
+        height: 30
     },
     cajaTexto:{
-        padding: 10,
-        borderWidth: 1,
+        flex:2,
+        textAlign: 'left',
+        borderWidth: 2,
+        backgroundColor: 'transparent',
         borderColor: '#c885ba',
-        borderRadius: 20,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10,
         color: 'black',
+        height: 30,
+        paddingLeft: 5
     }
   });
 
 
-  export default CajaTexto;
+  export default TextoInput;

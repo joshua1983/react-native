@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, AsyncStorage, ImageBackground } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, AsyncStorage, ImageBackground, Dimensions } from 'react-native';
 import { Container, Button, Text,  Grid, Col, Row, View } from 'native-base';
 import { AppLoading, Font } from 'expo';
 import Imagenes from '../utils/Images';
@@ -17,6 +17,31 @@ const estilos = StyleSheet.create({
 
 export default class HomeUser extends React.Component {
 
+    static navigationOptions = {
+        headerTitle: (
+            <View style={{flex:1, flexDirection:'row',backgroundColor:'#872386', alignItems:'center'}}>
+                
+                    <Text style={{
+                        flex:1, 
+                        fontSize:20, 
+                        fontWeight:'bold', 
+                        color:'white', 
+                        paddingLeft:10}}>Home</Text>
+                
+                <Image
+                    source={Imagenes.barraLogo}
+                    style={{flex:2, width: 190, height: 57, padding:10}} 
+                />
+            </View>
+        ),
+            
+        
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      };
+    
     state = {
         usuario:{},
         cargando: true
@@ -26,11 +51,6 @@ export default class HomeUser extends React.Component {
         super(props);
     }
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-          title: navigation.getParam('otherParam', 'Bienvenido'),
-        };
-      };
     
 
     loadBook = () =>{
@@ -81,7 +101,7 @@ export default class HomeUser extends React.Component {
                     usuario: usuario,
                     cargando: false
                 });
-                this.props.navigation.setParams({otherParam: 'Bienvenido '+usuario.nombres + " " + usuario.apellidos})
+                this.props.navigation.setParams({header:null})
             })
             .done(() => {
             });
@@ -102,7 +122,10 @@ export default class HomeUser extends React.Component {
                 style={{width: '100%', height: '100%', flex:1}}
                 resizeMode='cover' 
                 >
-                <Grid style={{padding: 10}}>
+                <Grid >
+                    <Row>
+                        <Text style={styles.titulo}>Bienvenido: {this.state.usuario.nombres} {this.state.usuario.apellidos}</Text>
+                    </Row>
                     <Row>
                         <Col></Col>
                         <Col>
@@ -169,5 +192,11 @@ const styles = StyleSheet.create({
         height: null,
         resizeMode: 'cover',
         position: 'absolute'
+    },
+    titulo:{
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold'
     }
+
 });

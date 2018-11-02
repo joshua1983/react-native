@@ -67,7 +67,7 @@ export default class AuthLoadingScreen extends React.Component {
         <View style={{ backgroundColor: '#ffffff' }}>
           
             <ActivityIndicator />
-            <StatusBar barStyle="default" />
+            <StatusBar barStyle='default' />
 
         </View>
     );
@@ -85,5 +85,5 @@ const styles = StyleSheet.create({
   viewButton: {
     flex:1,
     width: 290
-  },
+  }
 });

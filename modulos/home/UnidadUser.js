@@ -1,12 +1,33 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Container, Content, Text, ListItem } from 'native-base';
-import Imagenes from '../utils/Images';
-import Breadcrumb from 'react-native-breadcrumb';  
+import { StyleSheet, Image } from 'react-native';
+import { Container, Content, Text, ListItem, View } from 'native-base';
+import Imagenes from '../utils/Images'; 
 
 
 export default class UnidadUser extends React.Component {
-
+    static navigationOptions = {
+        headerBackTitle: 'Atras',
+        headerTitle: (
+            <View style={{flex:1, flexDirection:'row',backgroundColor:'#872386', alignItems:'center'}}>
+                
+                    <Text style={{
+                        flex:1, 
+                        fontSize:20, 
+                        fontWeight:'bold', 
+                        color:'white', 
+                        paddingLeft:10}}>Unidad</Text>
+                
+                <Image
+                    source={Imagenes.barraLogo}
+                    style={{flex:2, width: 190, height: 57, padding:10}} 
+                />
+            </View>
+        ),
+        headerTintColor: "#872386",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      };
     
     state = {
         Id: 0,
@@ -80,13 +101,7 @@ export default class UnidadUser extends React.Component {
         var i =0;
         return (
             <Container>
-                <Breadcrumb
-                        entities={[this.state.Libro, "Nivel "+ this.state.Nivel+" "]}
-                        isTouchable={true}
-                        flowDepth={0}
-                        height={30}
-                        borderRadius={5}
-                />
+                
                 <Text style={estilos.titulo}>Seleccione la unidad</Text>
                 <Content style={{padding: 10}}>
                     {this.state.Unidades.map(r => {

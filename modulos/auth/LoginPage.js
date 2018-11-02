@@ -8,13 +8,18 @@ import {
     TextInput, 
     Text,
     Button,
-    Image
+    Image,
+    Platform,
+    Icon
 } from 'react-native';
 import Imagenes from '../utils/Images';
 
-
+const iconUser = Platform.OS === 'ios' ? "ios-user": "md-user";
+    
 
 export default class LoginPage extends Component {
+
+    
 
     state = {
         usuario: '',
@@ -37,7 +42,7 @@ export default class LoginPage extends Component {
             MaterialIcons:require('react-native-vector-icons/MaterialIcons')       
           });
         }catch (error) {
-          //console.log('error loading icon fonts', error);
+          console.log('error loading icon fonts', error);
         }
       }
 
@@ -111,7 +116,7 @@ export default class LoginPage extends Component {
                     </Text>
                 </View>
                 <View style={estilos.formulario}>
-                    <View style={estilos.viewInput}>        
+                    <View style={estilos.viewInput}>     
                     <TextInput 
                         placeholder="Usuario"
                         ref={component => this._usuario = component}
@@ -176,11 +181,11 @@ const estilos = StyleSheet.create({
         fontWeight: 'bold'
     },
     formulario: {
-        flex:1,
         paddingTop: 5
     },
     viewInput: {
         padding: 10
+
     },
     viewWrapperButton:{
         justifyContent:'center',
@@ -188,7 +193,9 @@ const estilos = StyleSheet.create({
         padding: 10
     },
     viewButton: {
-        width: 290
+        width: 290,
+        borderRadius: 20,
+        borderRadius:2
     },
     mensajes: {
         flex:1,
@@ -201,10 +208,10 @@ const estilos = StyleSheet.create({
     cajaTexto: {
         textAlign: 'center',
         borderWidth: 2,
-        backgroundColor: '#c885ba',
+        backgroundColor: 'transparent',
         borderColor: '#c885ba',
         borderRadius: 20,
-        color: '#ffffff',
+        color: 'black',
         height: 50
         
     }

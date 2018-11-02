@@ -1,13 +1,34 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, View, ToastAndroid } from 'react-native';
-import { Container, Content, Text, ListItem, Button, Card, CardItem, Body } from 'native-base';
+import { StyleSheet, Image } from 'react-native';
+import { Container, Content, Text, Button, Card, CardItem, Body, View } from 'native-base';
 import Imagenes from '../utils/Images';
-import Breadcrumb from 'react-native-breadcrumb';  
 import RenderHTML from '../core/RenderHTML';
 
 
 export default class PaginaUser extends React.Component {
-
+    static navigationOptions = {
+      
+        headerTitle: (
+            <View style={{flex:1, flexDirection:'row',backgroundColor:'#872386', alignItems:'center'}}>
+                
+                    <Text style={{
+                        flex:1, 
+                        fontSize:20, 
+                        fontWeight:'bold', 
+                        color:'white', 
+                        paddingLeft:10}}></Text>
+                
+                <Image
+                    source={Imagenes.barraLogo}
+                    style={{flex:2, width: 190, height: 57, padding:10}} 
+                />
+            </View>
+        ),
+        headerTintColor: "#872386",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      };
     state = {
         Libro: '',
         Nivel: '',
@@ -126,13 +147,7 @@ export default class PaginaUser extends React.Component {
 
         return (
             <Container>
-                <Breadcrumb
-                        entities={[this.state.Libro, "Nivel "+ this.state.Nivel+"", "Unidad "+this.state.Unidad]}
-                        isTouchable={true}
-                        flowDepth={0}
-                        height={30}
-                        borderRadius={5}
-                />
+                
                 <Content>
                     <Card>
                         <CardItem>

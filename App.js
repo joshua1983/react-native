@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Image, StyleSheet } from 'react-native';
 import LoginPage from './modulos/auth/LoginPage';
 import HomeUser from './modulos/home/HomeUser';
 import NivelUser from './modulos/home/NivelUser';
@@ -10,7 +10,7 @@ import AuthLoadingScreen from './modulos/auth/AuthLoadingScreen';
 
 
 
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator} from 'react-navigation';
 
 const AppStack = createStackNavigator({ 
   Home: HomeUser, 
@@ -18,7 +18,8 @@ const AppStack = createStackNavigator({
   Unidad: UnidadUser,
   Pagina: PaginaUser,
   Interactive: Interactive
-});
+}
+);
 
 const AuthStack = createStackNavigator({ 
   Login: LoginPage 

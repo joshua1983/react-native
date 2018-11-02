@@ -15,7 +15,9 @@ export default class EncabezadoHome extends Component {
 
     render(){
         return(
-            <Header style={styles.FondoHeader}>
+            <Header style={styles.FondoHeader}
+                androidStatusBarColor="#902290"
+            >
                 
                 <Body style={styles.Body}>
                     <Grid>
@@ -35,5 +37,6 @@ const styles = StyleSheet.create({
     },
     FondoHeader:{
         backgroundColor: '#902290'
+        
     }
 })
